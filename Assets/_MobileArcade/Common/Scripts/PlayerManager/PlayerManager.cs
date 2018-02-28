@@ -38,6 +38,7 @@ public class PlayerManager : MonoBehaviour {
   void Update () {
     if (useWithoutPhone) {
       players[0].OnMoveTilt(Utils.KeyboardVector("w", "a", "s", "d"));
+	  //players[0].OnMoveTilt(Utils.KeyboardVector("z", "q", "s", "d"));
       players[1].OnMoveTilt(Utils.KeyboardVector("i", "j", "k", "l"));
     }
   }
