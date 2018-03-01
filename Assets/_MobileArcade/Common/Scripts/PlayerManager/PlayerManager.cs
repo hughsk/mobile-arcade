@@ -19,9 +19,10 @@ public class PlayerManager : MonoBehaviour {
 
     if (useWithoutPhone) {
       SpawnNewPlayer();
-      SpawnNewPlayer();
-	  CircularSpawnPoints();
+      SpawnNewPlayer();  
     }
+
+	CircularSpawnPoints();
   }
 
   void OnDisable () {
