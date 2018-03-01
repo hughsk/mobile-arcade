@@ -6,6 +6,8 @@ public class PlayerManager : MonoBehaviour {
 
   [Header("Debug Options")]
   [SerializeField] bool useWithoutPhone;
+	[SerializeField] Vector3 centerPoint;
+	[SerializeField] float dist;
 
   List<Player> players;
   Transform xform;
@@ -18,6 +20,7 @@ public class PlayerManager : MonoBehaviour {
     if (useWithoutPhone) {
       SpawnNewPlayer();
       SpawnNewPlayer();
+	  CircularSpawnPoints();
     }
   }
 
@@ -52,4 +55,15 @@ public class PlayerManager : MonoBehaviour {
 
     return player;
   }
+
+	void CircularSpawnPoints()
+	{
+		for (int i = 0; i < players.Count; i++)
+		{
+			float x = Mathf.Cos((2*Mathf.PI / players.Count) * i);
+			float z = Mathf.Sin((2*Mathf.PI / players.Count) * i);
+
+			players[i].transform.position = centerPoint + new Vector3(x, 0, z) * dist;
+		}
+	}
 }

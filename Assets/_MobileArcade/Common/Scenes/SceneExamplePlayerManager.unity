@@ -375,6 +375,8 @@ MonoBehaviour:
   playerPrefab: {fileID: 114511847249128066, guid: 9d54f19e310a249a18c78a2a3d9329aa,
     type: 2}
   useWithoutPhone: 1
+  centerPoint: {x: 0, y: 1.1, z: 0}
+  dist: 0.3
 --- !u!4 &1945896672
 Transform:
   m_ObjectHideFlags: 0
