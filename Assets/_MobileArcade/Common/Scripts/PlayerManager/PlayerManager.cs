@@ -6,8 +6,8 @@ public class PlayerManager : MonoBehaviour {
 
   [Header("Debug Options")]
   [SerializeField] bool useWithoutPhone;
-	[SerializeField] Vector3 centerPoint;
-	[SerializeField] float dist;
+  [SerializeField] Vector3 centerPoint;
+  [SerializeField] float dist;
 
   List<Player> players;
   Transform xform;
@@ -25,6 +25,7 @@ public class PlayerManager : MonoBehaviour {
     }
 
 	CircularSpawnPoints();
+	AssignPlayersColor();
   }
 
   void OnDisable () {
@@ -43,9 +44,9 @@ public class PlayerManager : MonoBehaviour {
 
   void Update () {
     if (useWithoutPhone) {
-      //players[0].OnMoveTilt(Utils.KeyboardVector("w", "a", "s", "d"));
-	  players[0].OnMoveTilt(Utils.KeyboardVector("z", "q", "s", "d"));
-      players[1].OnMoveTilt(Utils.KeyboardVector("i", "j", "k", "l"));
+      //players[1].OnMoveTilt(Utils.KeyboardVector("w", "a", "s", "d"));
+	  players[1].OnMoveTilt(Utils.KeyboardVector("z", "q", "s", "d"));
+      players[0].OnMoveTilt(Utils.KeyboardVector("i", "j", "k", "l"));
     }
   }
 
@@ -63,10 +64,20 @@ public class PlayerManager : MonoBehaviour {
 	{
 		for (int i = 0; i < players.Count; i++)
 		{
-			float x = Mathf.Cos((2*Mathf.PI / players.Count) * i);
-			float z = Mathf.Sin((2*Mathf.PI / players.Count) * i);
+			float _x = Mathf.Cos((2*Mathf.PI / players.Count) * i);
+			float _z = Mathf.Sin((2*Mathf.PI / players.Count) * i);
 
-			players[i].transform.position = centerPoint + new Vector3(x, 0, z) * dist;
+			players[i].transform.position = centerPoint + new Vector3(_x, 0, _z) * dist;
+		}
+	}
+
+	void AssignPlayersColor()
+	{
+		for (int i = 0; i < players.Count; i++)
+		{
+			HSBColor _hsbColor = new HSBColor((1 / (float) players.Count) * i, 1, 1, 1);
+			Color _color = HSBColor.ToColor(_hsbColor);
+			players[i].GetComponent<MeshRenderer>().material.color = _color;
 		}
 	}
 }

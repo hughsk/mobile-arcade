@@ -54,8 +54,8 @@ public class PlayerExample : Player {
 		}*/
 	}
 
-  public override void OnMoveTilt(Vector2 movement) {
-    direction = new Vector3(movement.x, 0, movement.y);
+  public override void OnMoveTilt(Vector2 _movement) {
+    direction = new Vector3(_movement.x, 0, _movement.y);
 
   }
 
