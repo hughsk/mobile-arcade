@@ -30,6 +30,9 @@ public class PlayerManager : MonoBehaviour {
 
   void OnDisable () {
     for (int i = 0; i < players.Count; i++) {
+	  if (players[i] == null)
+	  	continue;
+			
       Destroy(players[i].gameObject);
     }
 
