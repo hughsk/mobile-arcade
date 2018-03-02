@@ -6,7 +6,10 @@ public class PlayerManager : MonoBehaviour {
 
   [Header("Debug Options")]
   [SerializeField] bool useWithoutPhone;
+
+  // Spawn points variables
   [SerializeField] Vector3 centerPoint;
+  // Distance from centerpoint
   [SerializeField] float dist;
 
   List<Player> players;

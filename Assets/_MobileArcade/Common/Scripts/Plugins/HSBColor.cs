@@ -1,5 +1,8 @@
 ﻿using UnityEngine;
 
+/// <summary>
+/// Can convert RGB type Colors to HBV type Colors and vice-versa.
+/// </summary>
 [System.Serializable]
 public struct HSBColor
 {
