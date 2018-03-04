@@ -13,9 +13,16 @@ server.listen(3000, (err) => {
   if (err) throw err
 })
 
-io.on('connection', (client) => {
+const channelPlayer = io.of('/player')
+
+channelPlayer.on('connection', (client) => {
   io.emit('client:connect', client.id)
+  channelHost.emit('client:connect', client.id)
   client.on('disconnect', () => {
     io.emit('client:disconnect', client.id)
   })
+})
+
+io.on('connection', (client) => {
+  console.log("HOST CONNECTED", client.id, client.nsp.name)
 })

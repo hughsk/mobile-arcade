@@ -16,5 +16,5 @@ public abstract class Player : MonoBehaviour {
   /// should move. May have a magnitude smaller than 1 if the player is only
   /// moving slowly.
   /// </param>
-  public abstract void OnMoveTilt (Vector2 movement);
+  public virtual void OnMoveTilt (Vector2 movement) {}
 }
