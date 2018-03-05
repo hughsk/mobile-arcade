@@ -21,9 +21,6 @@ public class ArenaPlayer : Player {
   // Bouncing force when two players collide with each other
   [SerializeField] float bouncingForce;
 
-	[SerializeField] Vector3 centerPoint;
-
-	[SerializeField] float dist;
 
   //
   // Useful for knowing the velocity before a collision
@@ -35,7 +32,7 @@ public class ArenaPlayer : Player {
   }
 
 	void Start () {
-		float angle = Random.Range(0f, Mathf.PI * 2f);
+		/*float angle = Random.Range(0f, Mathf.PI * 2f);
 		float _x = Mathf.Cos(angle);
 		float _z = Mathf.Sin(angle);
 
@@ -43,7 +40,7 @@ public class ArenaPlayer : Player {
 
 		HSBColor _hsbColor = new HSBColor(Random.Range(0f, 1f), 1, 1, 1);
 		Color _color = HSBColor.ToColor(_hsbColor);
-		GetComponent<MeshRenderer>().material.color = _color;
+		GetComponent<MeshRenderer>().material.color = _color;*/
 	}
 
 	void FixedUpdate() {
