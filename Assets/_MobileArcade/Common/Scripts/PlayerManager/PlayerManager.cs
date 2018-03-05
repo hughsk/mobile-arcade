@@ -1,45 +1,49 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
+using Quobject.SocketIoClientDotNet.Client;
 
+/// <summary>
+/// Accepts incoming player connections, disconnections and input events from
+/// PlayerConnectionManager. Spawns a player prefab every time one connects,
+/// and destroys it when it disconnects.
+/// </summary>
 public class PlayerManager : MonoBehaviour {
   [SerializeField] Player playerPrefab;
 
   [Header("Debug Options")]
-  [SerializeField] bool useWithoutPhone;
+  [SerializeField] bool testPlayers = true;
 
-  // Spawn points variables
-  [SerializeField] Vector3 centerPoint;
-  // Distance from centerpoint
-  [SerializeField] float dist;
+  PlayerConnectionManager connectionManager;
 
-  List<Player> players;
+  Dictionary<string, Player> players;
+
   Transform xform;
 
   void OnEnable () {
-	Physics.gravity = new Vector3(0, -0.5f, 0);
-
     xform = GetComponent<Transform>();
+    players = new Dictionary<string, Player>();
 
-    players = new List<Player>();
+    connectionManager = Bootstrap.Get<PlayerConnectionManager>();
+    connectionManager.EVENT_ENTER += OnPlayerEnter;
+    connectionManager.EVENT_LEAVE += OnPlayerLeave;
+    connectionManager.EVENT_INPUT += OnPlayerInput;
+    connectionManager.Join();
 
-    if (useWithoutPhone) {
-      SpawnNewPlayer();
-      SpawnNewPlayer();  
+    if (testPlayers) {
+      SpawnNewPlayer("0");
+      SpawnNewPlayer("1");
     }
-
-	CircularSpawnPoints();
-	AssignPlayersColor();
   }
 
   void OnDisable () {
-    for (int i = 0; i < players.Count; i++) {
-	  if (players[i] == null)
-	  	continue;
-			
-      Destroy(players[i].gameObject);
+    foreach (var player in players.Values) {
+      if (player != null) Destroy(player.gameObject);
     }
 
     players.Clear();
+    connectionManager.EVENT_ENTER -= OnPlayerEnter;
+    connectionManager.EVENT_LEAVE -= OnPlayerLeave;
+    connectionManager.EVENT_INPUT -= OnPlayerInput;
   }
 
   void OnValidate () {
@@ -49,41 +53,44 @@ public class PlayerManager : MonoBehaviour {
   }
 
   void Update () {
-    if (useWithoutPhone) {
-      //players[1].OnMoveTilt(Utils.KeyboardVector("w", "a", "s", "d"));
-	  players[1].OnMoveTilt(Utils.KeyboardVector("z", "q", "s", "d"));
-      players[0].OnMoveTilt(Utils.KeyboardVector("i", "j", "k", "l"));
+    if (testPlayers) {
+      players["0"].OnMoveTilt(Utils.KeyboardVector("w", "a", "s", "d"));
+      // players["1"].OnMoveTilt(Utils.KeyboardVector("z", "q", "s", "d"));
+      players["1"].OnMoveTilt(Utils.KeyboardVector("i", "j", "k", "l"));
     }
   }
 
-  Player SpawnNewPlayer () {
+  Player SpawnNewPlayer (string sessionId) {
+    if (players.ContainsKey(sessionId)) return players[sessionId];
+
     var player = Instantiate<Player>(playerPrefab);
     var playerTransform = player.transform;
 
     playerTransform.SetParent(xform);
-    players.Add(player);
+    players.Add(sessionId, player);
 
     return player;
   }
 
-	void CircularSpawnPoints()
-	{
-		for (int i = 0; i < players.Count; i++)
-		{
-			float _x = Mathf.Cos((2*Mathf.PI / players.Count) * i);
-			float _z = Mathf.Sin((2*Mathf.PI / players.Count) * i);
+  void OnPlayerEnter (PlayerEvents.Session session) {
+    SpawnNewPlayer(session.id);
+  }
 
-			players[i].transform.position = centerPoint + new Vector3(_x, 0, _z) * dist;
-		}
-	}
+  void OnPlayerInput (PlayerEvents.Input input) {
+    if (players[input.id] == null) return;
+    if (input.type == "tilt") {
+      players[input.id].OnMoveTilt(new Vector2(
+        input.inputs[0],
+        input.inputs[1]
+      ));
+    }
+  }
 
-	void AssignPlayersColor()
-	{
-		for (int i = 0; i < players.Count; i++)
-		{
-			HSBColor _hsbColor = new HSBColor((1 / (float) players.Count) * i, 1, 1, 1);
-			Color _color = HSBColor.ToColor(_hsbColor);
-			players[i].GetComponent<MeshRenderer>().material.color = _color;
-		}
-	}
+  void OnPlayerLeave (PlayerEvents.Session session) {
+    Player player;
+
+    if (players.TryGetValue(session.id, out player)) {
+      Destroy(player.gameObject);
+    }
+  }
 }
