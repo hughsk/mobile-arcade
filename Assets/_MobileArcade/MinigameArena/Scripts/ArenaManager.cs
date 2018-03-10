@@ -3,10 +3,12 @@ using System.Collections.Generic;
 
 [RequireComponent(typeof(PlayerManager))]
 public class ArenaManager : MonoBehaviour {
+
+  [Header("Player Spawn Points")]
   // Spawn points variables
   [SerializeField] Vector3 centerPoint;
   // Distance from centerpoint
-  [SerializeField] float dist;
+  [SerializeField] float distFromCenter;
 
   int amountOfPlayers;
 
@@ -31,7 +33,7 @@ public class ArenaManager : MonoBehaviour {
 			float _x = Mathf.Cos((2*Mathf.PI / amountOfPlayers) * i);
 			float _z = Mathf.Sin((2*Mathf.PI / amountOfPlayers) * i);
 
-			transform.GetChild(i).transform.position = centerPoint + new Vector3(_x, 0, _z) * dist;
+			transform.GetChild(i).transform.position = centerPoint + new Vector3(_x, 0, _z) * distFromCenter;
 		}
 	}
 

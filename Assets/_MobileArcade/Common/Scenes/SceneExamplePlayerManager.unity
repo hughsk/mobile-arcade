@@ -550,4 +550,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   centerPoint: {x: 0, y: -0.1, z: 0}
-  dist: 0.3
+  distFromCenter: 0.3

@@ -8,30 +8,35 @@ using UnityEngine;
 /// </summary>
 [RequireComponent(typeof(Rigidbody))]
 public class ArenaPlayer : Player {
-  Transform xform;
   Vector3 direction;
   Rigidbody rb;
-
-  // Acceleration speed of the player
-  [SerializeField] float accelerationSpeed;
-
-  // Max velocity of the player
-  [SerializeField] float velocityLimit;
-
-  // Bouncing force when two players collide with each other
-  [SerializeField] float bouncingForce;
-
-
-	[SerializeField] ParticleSystem starParticles;
-	float startParticles_lifetime;
-
-
-  //
   // Useful for knowing the velocity before a collision
   Vector3 lastVelocity;
+  
+  [Header("Player Movement")]
+  // Acceleration speed of the player
+  [SerializeField] float accelerationSpeed;
+  // Max velocity of the player
+  [SerializeField] float velocityLimit;
+  // Bouncing force when two players collide with each other
+  [SerializeField] float bouncingForce;
+  [Space(10)]
+
+
+  [Header("Particle Systems")]
+  // Star particles (used when two players collide)
+  [SerializeField] ParticleSystem starParticles;
+  float startParticles_lifetime;
+  [Space(10)]
+
+
+  [Header("Audio Clips")]
+  [SerializeField] List<AudioClip> collidingSounds;
+  bool canPlay;
+
+
 
   void OnEnable () {
-    xform = GetComponent<Transform>();
 	rb = GetComponent<Rigidbody>();
   }
 
@@ -47,9 +52,11 @@ public class ArenaPlayer : Player {
 		GetComponent<MeshRenderer>().material.color = _color;*/
 		startParticles_lifetime = starParticles.main.startLifetime.constant;
 	}
+		
 
 	void FixedUpdate() {
 		lastVelocity = rb.velocity;
+		canPlay = true;
 
 		rb.AddForce(direction * accelerationSpeed);
 
@@ -88,10 +95,38 @@ public class ArenaPlayer : Player {
 				_col.contacts[0].point, 
 				Quaternion.LookRotation(_col.contacts[0].normal)
 			);
-
-			//Debug.DrawRay(_col.contacts[0].point, _col.contacts[0].normal, Color.white);
-			//Debug.Break();
 			Destroy(_starParticles.gameObject, startParticles_lifetime);
+
+			// Play a random "Booing" sound
+			if (canPlay)
+			{
+				// Makes sure two sounds won't play at the same time
+				_col.collider.GetComponent<ArenaPlayer>().canPlay = false;
+	
+				// Make new GameObject for a sound
+				int _r = Random.Range(0, collidingSounds.Count);
+				GameObject _soundObj = new GameObject("Booing Sound " + _r);
+
+				// Position of sound at collision point 
+				_soundObj.transform.position = _col.contacts[0].point;
+
+				AudioSource _soundObj_audioSource = _soundObj.AddComponent<AudioSource>();
+				//_soundObj_audioSource.pitch = Map(lastVelocity.magnitude, 0f, velocityLimit, 0.8f, 1.2f, true);
+				_soundObj_audioSource.GetComponent<AudioSource>().PlayOneShot(collidingSounds[_r]);
+				Destroy(_soundObj, collidingSounds[_r].length);
+
+			}
+
 		}
 	}
+
+	/*float Map(float x, float in_min, float in_max, float out_min, float out_max, bool shouldClamp)
+	{
+		float result =  (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
+		if (shouldClamp)
+		{
+			result = Mathf.Clamp(result, out_min, out_max);
+		}
+		return result;
+	}*/
 }
