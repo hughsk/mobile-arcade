@@ -11,6 +11,7 @@ app.use(express.static(path.resolve(__dirname, 'static')))
 
 server.listen(3000, (err) => {
   if (err) throw err
+  console.log('http://localhost:3000/')
 })
 
 const channelPlayer = io.of('/player')
@@ -20,7 +21,13 @@ channelPlayer.on('connection', (client) => {
   client.on('disconnect', () => {
     io.emit('client:disconnect', client.id)
   })
+
+  client.on('client:input', (data) => {
+    io.emit('client:input', data)
+    console.log(data)
+  })
 })
+
 
 io.on('connection', (client) => {
   console.log("HOST CONNECTED", client.id, client.nsp.name)

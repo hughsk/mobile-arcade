@@ -67,7 +67,10 @@ public class PlayerManager : MonoBehaviour {
     var playerTransform = player.transform;
 
     playerTransform.SetParent(xform);
-    players.Add(sessionId, player);
+    players[sessionId] = player;
+
+    Debug.Log(sessionId);
+    Debug.Log(player);
 
     return player;
   }
@@ -77,11 +80,13 @@ public class PlayerManager : MonoBehaviour {
   }
 
   void OnPlayerInput (PlayerEvents.Input input) {
-    if (players[input.id] == null) return;
+    Player player;
+    if (!players.TryGetValue(input.id, out player)) return;
+    if (player == null) return;
     if (input.type == "tilt") {
-      players[input.id].OnMoveTilt(new Vector2(
-        input.inputs[0],
-        input.inputs[1]
+      player.OnMoveTilt(new Vector2(
+        input.xInput,
+        input.yInput
       ));
     }
   }

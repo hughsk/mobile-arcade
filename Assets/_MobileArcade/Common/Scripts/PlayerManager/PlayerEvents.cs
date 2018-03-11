@@ -21,7 +21,8 @@ public static class PlayerEvents {
     /// A list of input values, which will vary depending on the input.
     /// For example, "tilt" will contain something like [-0.5353, +0.4324].
     /// </summary>
-    public float[] inputs;
+    public float xInput;
+    public float yInput;
   }
 
   public struct Session {
