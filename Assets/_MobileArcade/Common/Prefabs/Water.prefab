@@ -421,13 +421,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   reflectionMask:
+    serializedVersion: 2
     m_Bits: 4294967295
   reflectSkybox: 1
-  clearColor:
-    r: 1
-    g: 1
-    b: 1
-    a: 1
+  clearColor: {r: 1, g: 1, b: 1, a: 1}
   reflectionSampler: _ReflectionTex
   clipPlaneOffset: 0.07
 --- !u!114 &114837165811533896
