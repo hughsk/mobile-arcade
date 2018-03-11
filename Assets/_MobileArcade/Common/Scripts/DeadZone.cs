@@ -14,6 +14,8 @@ public class DeadZone : MonoBehaviour {
 		if (_col.gameObject.tag == "Player")
 		{
 			Destroy(_col.gameObject);
+			ArenaManager.amountOfPlayersAlive--;
+			ArenaManager.CheckRoundDone();
 		}
 	}
 }

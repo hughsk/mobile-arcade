@@ -1,24 +1,28 @@
 using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(PlayerManager))]
 public class ArenaManager : MonoBehaviour {
+
+  [Header("Player Spawn Points")]
   // Spawn points variables
   [SerializeField] Vector3 centerPoint;
   // Distance from centerpoint
-  [SerializeField] float dist;
+  [SerializeField] float distFromCenter;
 
   int amountOfPlayers;
+  public static int amountOfPlayersAlive;
 
-  Transform xform;
   PlayerManager playerManager;
 
   void OnEnable () {
+
 	Physics.gravity = new Vector3(0, -0.5f, 0);
-    xform = GetComponent<Transform>();
 		playerManager = GetComponent<PlayerManager>();
 
 		amountOfPlayers = transform.childCount;
+		amountOfPlayersAlive = amountOfPlayers;
 		CircularSpawnPoints();
 		AssignPlayersColor();
 
@@ -31,7 +35,7 @@ public class ArenaManager : MonoBehaviour {
 			float _x = Mathf.Cos((2*Mathf.PI / amountOfPlayers) * i);
 			float _z = Mathf.Sin((2*Mathf.PI / amountOfPlayers) * i);
 
-			transform.GetChild(i).transform.position = centerPoint + new Vector3(_x, 0, _z) * dist;
+			transform.GetChild(i).transform.position = centerPoint + new Vector3(_x, 0, _z) * distFromCenter;
 		}
 	}
 
@@ -42,6 +46,15 @@ public class ArenaManager : MonoBehaviour {
 			HSBColor _hsbColor = new HSBColor((1 / (float) amountOfPlayers) * i, 1, 1, 1);
 			Color _color = HSBColor.ToColor(_hsbColor);
 			transform.GetChild(i).GetComponent<MeshRenderer>().material.color = _color;
+		}
+	}
+
+	public static void CheckRoundDone()
+	{
+		if (amountOfPlayersAlive <= 1)
+		{
+			// Restart level
+			SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
 		}
 	}
 }
