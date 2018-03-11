@@ -18,6 +18,8 @@ public class Bootstrap : MonoBehaviour {
   }
 
   void Awake () {
+    Application.runInBackground = true;
+
     if (instance != null) {
       Destroy(gameObject);
       return;
