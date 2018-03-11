@@ -12,7 +12,7 @@ public class ArenaPlayer : Player {
   Rigidbody rb;
   // Useful for knowing the velocity before a collision
   Vector3 lastVelocity;
-  
+
   [Header("Player Movement")]
   // Acceleration speed of the player
   [SerializeField] float accelerationSpeed;
@@ -20,7 +20,17 @@ public class ArenaPlayer : Player {
   [SerializeField] float velocityLimit;
   // Bouncing force when two players collide with each other
   [SerializeField] float bouncingForce;
-  [Space(10)]
+	[Space(10)]
+
+	[Header("Arrow")]
+	// The mesh used for the arrow that points out from the player
+	[SerializeField] Mesh arrowMesh;
+	// The material used for the arrow
+	[SerializeField] Material arrowMaterial;
+	[SerializeField, Range(0f, 1f)] float arrowUpOffset = 0.1f;
+  [SerializeField, Range(0f, 1f)] float arrowOutOffset = 0.1f;
+	[SerializeField, Range(0f, 3f)] float arrowScale = 1.5f;
+	[Space(10)]
 
 
   [Header("Particle Systems")]
@@ -34,10 +44,12 @@ public class ArenaPlayer : Player {
   [SerializeField] List<AudioClip> collidingSounds;
   bool canPlay;
 
-
+	Transform xform;
+	Matrix4x4 arrowMatrix = Matrix4x4.identity;
 
   void OnEnable () {
-	rb = GetComponent<Rigidbody>();
+		xform = GetComponent<Transform>();
+		rb = GetComponent<Rigidbody>();
   }
 
 	void Start () {
@@ -52,7 +64,19 @@ public class ArenaPlayer : Player {
 		GetComponent<MeshRenderer>().material.color = _color;*/
 		startParticles_lifetime = starParticles.main.startLifetime.constant;
 	}
-		
+
+	void Update () {
+		if (xform == null) return;
+
+		var normal = direction.normalized;
+		var origin = xform.position + Vector3.up * arrowUpOffset + normal * arrowOutOffset;
+		var matrix = Matrix4x4.LookAt(origin, origin + normal * 10f, Vector3.up);
+
+		arrowMatrix = matrix * Matrix4x4.Scale(Vector3.one * arrowScale);
+
+		Graphics.DrawMesh(arrowMesh, arrowMatrix, arrowMaterial, LayerMask.NameToLayer("Default"), Camera.main);
+	}
+
 
 	void FixedUpdate() {
 		lastVelocity = rb.velocity;
@@ -78,7 +102,6 @@ public class ArenaPlayer : Player {
 
   public override void OnMoveTilt(Vector2 _movement) {
     direction = new Vector3(_movement.x, 0, _movement.y);
-
   }
 
 	void OnCollisionEnter(Collision _col)
@@ -91,8 +114,8 @@ public class ArenaPlayer : Player {
 
 			// Star Particles effect
 			ParticleSystem _starParticles = Instantiate(
-				starParticles, 
-				_col.contacts[0].point, 
+				starParticles,
+				_col.contacts[0].point,
 				Quaternion.LookRotation(_col.contacts[0].normal)
 			);
 			Destroy(_starParticles.gameObject, startParticles_lifetime);
@@ -102,12 +125,12 @@ public class ArenaPlayer : Player {
 			{
 				// Makes sure two sounds won't play at the same time
 				_col.collider.GetComponent<ArenaPlayer>().canPlay = false;
-	
+
 				// Make new GameObject for a sound
 				int _r = Random.Range(0, collidingSounds.Count);
 				GameObject _soundObj = new GameObject("Booing Sound " + _r);
 
-				// Position of sound at collision point 
+				// Position of sound at collision point
 				_soundObj.transform.position = _col.contacts[0].point;
 
 				AudioSource _soundObj_audioSource = _soundObj.AddComponent<AudioSource>();
