@@ -30,6 +30,6 @@ public class Bootstrap : MonoBehaviour {
   }
 
   void OnDestroy () {
-    instance = null;
+    if (instance == this) instance = null;
   }
 }
