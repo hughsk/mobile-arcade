@@ -17,7 +17,6 @@ const channelPlayer = io.of('/player')
 
 channelPlayer.on('connection', (client) => {
   io.emit('client:connect', client.id)
-  channelHost.emit('client:connect', client.id)
   client.on('disconnect', () => {
     io.emit('client:disconnect', client.id)
   })
