@@ -13,10 +13,10 @@ public class FitInWallManager : MonoBehaviour {
 	[Space(10)]
 
 	[Header("Wall Speed")]
-	float wallSpeedCurrent;
 	[SerializeField] float wallSpeedStart;
 	[SerializeField] float wallSpeedMultiplier;
 	[SerializeField] float wallSpeedMax;
+	float wallSpeedCurrent;
 
 	// Use this for initialization
 	void OnEnable () {
