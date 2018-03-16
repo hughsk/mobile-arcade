@@ -11,6 +11,7 @@
   "dependencies": {
     "@hughsk/fulltilt": "^0.7.1",
     "browserify": "^16.1.0",
+    "d3-scale-chromatic": "^1.2.0",
     "express": "^4.16.2",
     "npm-run-all": "^4.1.2",
     "socket.io": "^2.0.4",

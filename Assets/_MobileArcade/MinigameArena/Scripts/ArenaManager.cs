@@ -24,8 +24,6 @@ public class ArenaManager : MonoBehaviour {
 		amountOfPlayers = transform.childCount;
 		amountOfPlayersAlive = amountOfPlayers;
 		CircularSpawnPoints();
-		AssignPlayersColor();
-
   }
 
 	void CircularSpawnPoints()
@@ -36,16 +34,6 @@ public class ArenaManager : MonoBehaviour {
 			float _z = Mathf.Sin((2*Mathf.PI / amountOfPlayers) * i);
 
 			transform.GetChild(i).transform.position = centerPoint + new Vector3(_x, 0, _z) * distFromCenter;
-		}
-	}
-
-	void AssignPlayersColor()
-	{
-		for (int i = 0; i < amountOfPlayers; i++)
-		{
-			HSBColor _hsbColor = new HSBColor((1 / (float) amountOfPlayers) * i, 1, 1, 1);
-			Color _color = HSBColor.ToColor(_hsbColor);
-			transform.GetChild(i).GetComponent<MeshRenderer>().material.color = _color;
 		}
 	}
 

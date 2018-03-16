@@ -22,6 +22,10 @@ client.once('connect', function () {
   // window.addEventListener('click', tapToContinue, false)
   // window.addEventListener('ontouchstart', tapToContinue, false)
   // window.addEventListener('ontouchend', tapToContinue, false)
+
+  client.on('client:color', function (color) {
+    document.body.style.backgroundColor = 'rgb(' + [color.red, color.green, color.blue].join(', ') + ')'
+  })
 })
 
 function tapToContinue (e) {

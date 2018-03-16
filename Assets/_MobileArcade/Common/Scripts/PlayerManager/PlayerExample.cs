@@ -21,4 +21,8 @@ public class PlayerExample : Player {
   public override void OnMoveTilt(Vector2 _movement) {
     direction = new Vector3(_movement.x, 0, _movement.y);
   }
+
+  public override void SetColor(Color color) {
+    Debug.Log(color);
+  }
 }

@@ -17,4 +17,5 @@ public abstract class Player : MonoBehaviour {
   /// moving slowly.
   /// </param>
   public virtual void OnMoveTilt (Vector2 movement) {}
+  public abstract void SetColor (Color color);
 }

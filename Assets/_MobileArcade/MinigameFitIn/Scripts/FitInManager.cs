@@ -26,8 +26,6 @@ public class FitInManager : MonoBehaviour {
 	amountOfPlayers = transform.childCount;
 	amountOfPlayersAlive = amountOfPlayers;
 	EquidistantSpawnPoints();
-	AssignPlayersColor();
-
   }
 
 	void EquidistantSpawnPoints()
@@ -54,16 +52,6 @@ public class FitInManager : MonoBehaviour {
 		}
 	}
 
-	void AssignPlayersColor()
-	{
-		for (int i = 0; i < amountOfPlayers; i++)
-		{
-			HSBColor _hsbColor = new HSBColor((1 / (float) amountOfPlayers) * i, 1, 1, 1);
-			Color _color = HSBColor.ToColor(_hsbColor);
-			transform.GetChild(i).GetComponent<MeshRenderer>().material.color = _color;
-		}
-	}
-
 	public static void CheckRoundDone()
 	{
 		if (amountOfPlayersAlive <= 1)
@@ -72,5 +60,5 @@ public class FitInManager : MonoBehaviour {
 			SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
 		}
 	}
-		
+
 }

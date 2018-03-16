@@ -12,7 +12,7 @@ public class FitInPlayer : Player {
   Rigidbody rb;
   // Useful for knowing the velocity before a collision
   Vector3 lastVelocity;
-  
+
   [Header("Player Movement")]
   // Acceleration speed of the player
   [SerializeField] float accelerationSpeed;
@@ -52,7 +52,10 @@ public class FitInPlayer : Player {
 		GetComponent<MeshRenderer>().material.color = _color;*/
 		startParticles_lifetime = starParticles.main.startLifetime.constant;
 	}
-		
+
+	public override void SetColor (Color color) {
+		GetComponent<MeshRenderer>().material.color = color;
+	}
 
 	void FixedUpdate() {
 		lastVelocity = rb.velocity;
@@ -91,8 +94,8 @@ public class FitInPlayer : Player {
 
 			// Star Particles effect
 			ParticleSystem _starParticles = Instantiate(
-				starParticles, 
-				_col.contacts[0].point, 
+				starParticles,
+				_col.contacts[0].point,
 				Quaternion.LookRotation(_col.contacts[0].normal)
 			);
 			Destroy(_starParticles.gameObject, startParticles_lifetime);
@@ -102,12 +105,12 @@ public class FitInPlayer : Player {
 			{
 				// Makes sure two sounds won't play at the same time
 				_col.collider.GetComponent<FitInPlayer>().canPlay = false;
-	
+
 				// Make new GameObject for a sound
 				int _r = Random.Range(0, collidingSounds.Count);
 				GameObject _soundObj = new GameObject("Booing Sound " + _r);
 
-				// Position of sound at collision point 
+				// Position of sound at collision point
 				_soundObj.transform.position = _col.contacts[0].point;
 
 				AudioSource _soundObj_audioSource = _soundObj.AddComponent<AudioSource>();

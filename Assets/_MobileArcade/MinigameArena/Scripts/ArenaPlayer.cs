@@ -65,6 +65,10 @@ public class ArenaPlayer : Player {
 		startParticles_lifetime = starParticles.main.startLifetime.constant;
 	}
 
+	public override void SetColor (Color color) {
+		GetComponent<MeshRenderer>().material.color = color;
+	}
+
 	void Update () {
 		if (xform == null) return;
 

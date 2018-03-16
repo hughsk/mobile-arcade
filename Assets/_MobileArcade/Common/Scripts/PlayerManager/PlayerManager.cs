@@ -30,8 +30,8 @@ public class PlayerManager : MonoBehaviour {
     connectionManager.Join();
 
     if (testPlayers) {
-      SpawnNewPlayer("0");
-      SpawnNewPlayer("1");
+      SpawnNewPlayer("0", new Color(1, 0, 0));
+      SpawnNewPlayer("1", new Color(0, 0, 1));
     }
   }
 
@@ -60,12 +60,13 @@ public class PlayerManager : MonoBehaviour {
     }
   }
 
-  Player SpawnNewPlayer (string sessionId) {
+  Player SpawnNewPlayer (string sessionId, Color color) {
     if (players.ContainsKey(sessionId)) return players[sessionId];
 
     var player = Instantiate<Player>(playerPrefab);
     var playerTransform = player.transform;
 
+    player.SetColor(color);
     playerTransform.SetParent(xform);
     players[sessionId] = player;
 
@@ -76,7 +77,7 @@ public class PlayerManager : MonoBehaviour {
   }
 
   void OnPlayerEnter (PlayerEvents.Session session) {
-    SpawnNewPlayer(session.id);
+    SpawnNewPlayer(session.id, session.color);
   }
 
   void OnPlayerInput (PlayerEvents.Input input) {

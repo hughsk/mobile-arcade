@@ -1,4 +1,6 @@
 using System;
+using UnityEngine;
+using Newtonsoft.Json;
 
 /// <summary>
 /// Data types used when accepting socket events from socket.io.
@@ -27,8 +29,29 @@ public static class PlayerEvents {
 
   public struct Session {
     public string id;
-    public Session (string _id) {
+    public int red;
+    public int green;
+    public int blue;
+
+    public Session (string _id, int red, int green, int blue) {
       this.id = _id;
+      this.red = red;
+      this.green = green;
+      this.blue = blue;
+    }
+
+    public static Session FromJSON (string json) {
+      return JsonConvert.DeserializeObject<Session>(json);
+    }
+
+    public Color color {
+      get {
+        return new Color(
+          (float)red / 255f,
+          (float)green / 255f,
+          (float)blue / 255f
+        );
+      }
     }
   }
 }
