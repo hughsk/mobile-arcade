@@ -1,4 +1,5 @@
 using UnityEngine;
+using System;
 
 /// <summary>
 /// The Player class is a base class for you to inherit from.
@@ -16,6 +17,6 @@ public abstract class Player : MonoBehaviour {
   /// should move. May have a magnitude smaller than 1 if the player is only
   /// moving slowly.
   /// </param>
-  public virtual void OnMoveTilt (Vector2 movement) {}
   public abstract void SetColor (Color color);
+  public virtual void OnMoveTilt (Vector2 movement) {}
 }

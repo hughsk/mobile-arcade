@@ -27,6 +27,10 @@ public class PlayerConnectionManager : MonoBehaviour {
   List<PlayerEvents.Session> queueLeave = new List<PlayerEvents.Session>();
   object queueLock = new System.Object();
 
+  void Awake () {
+    DontDestroyOnLoad(gameObject);
+  }
+
   void OnEnable () {
     if (socketsEnabled) OpenSocketConnection();
   }
@@ -41,6 +45,7 @@ public class PlayerConnectionManager : MonoBehaviour {
 
     socket = IO.Socket(socketHost);
     socket.On(Socket.EVENT_CONNECT, OnSocketConnection);
+    socket.On(Socket.EVENT_DISCONNECT, OnSocketDisconnect);
     socket.On("client:connect", OnPlayerConnect);
     socket.On("client:disconnect", OnPlayerDisconnect);
     socket.On("client:input", OnClientInput);
@@ -49,12 +54,17 @@ public class PlayerConnectionManager : MonoBehaviour {
   void CloseSocketConnection () {
     if (socket == null) return;
 
+    Debug.Log("Forcing socket connection to close");
     socket.Disconnect();
     socket = null;
   }
 
   void OnSocketConnection () {
-    Debug.Log("Successfully connected to main socket server!");
+    Debug.LogWarning("Successfully connected to main socket server!");
+  }
+
+  void OnSocketDisconnect () {
+    Debug.LogError("Socket connection terminated?");
   }
 
   void OnPlayerConnect (object id) {

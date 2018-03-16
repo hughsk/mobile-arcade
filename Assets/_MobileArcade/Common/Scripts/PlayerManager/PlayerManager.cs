@@ -71,7 +71,6 @@ public class PlayerManager : MonoBehaviour {
     players[sessionId] = player;
 
     Debug.Log(sessionId);
-    Debug.Log(player);
 
     return player;
   }
@@ -96,7 +95,12 @@ public class PlayerManager : MonoBehaviour {
     Player player;
 
     if (players.TryGetValue(session.id, out player)) {
-      Destroy(player.gameObject);
+      try {
+        var gObj = player.gameObject;
+        if (gObj != null && gObj.activeInHierarchy) Destroy(player.gameObject);
+      } catch (MissingReferenceException) {}
+
+      players.Remove(session.id);
     }
   }
 }
