@@ -8,14 +8,13 @@ using UnityEngine;
 /// Useful for knowing how many players are left in the game.
 /// </summary>
 public class DeadZone : MonoBehaviour {
+	[SerializeField] PlayerManager playerManager;
 
 	void OnTriggerEnter(Collider _col)
 	{
 		if (_col.gameObject.tag == "Player")
 		{
-			Destroy(_col.gameObject);
-			ArenaManager.amountOfPlayersAlive--;
-			ArenaManager.CheckRoundDone();
+			playerManager.MakePlayerLose(_col.GetComponent<Player>());
 		}
 	}
 }

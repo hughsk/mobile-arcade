@@ -7,6 +7,8 @@ using System;
 /// You can find a super simple example in the PlayerExample class.
 /// </summary>
 public abstract class Player : MonoBehaviour {
+  public string sessionId;
+
   /// <summary>
   /// Another class will call OnMoveTilt when the current player is supposed
   /// to move in a particular direction. It's then up to you to move the player

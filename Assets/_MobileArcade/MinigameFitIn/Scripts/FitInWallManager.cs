@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System.Collections;
 
 public class FitInWallManager : MonoBehaviour {
 	[SerializeField] List<GameObject> walls;
@@ -23,7 +22,7 @@ public class FitInWallManager : MonoBehaviour {
 		isSpawning = false;
 		wallSpeedCurrent = wallSpeedStart;
 	}
-	
+
 	// Update is called once per frame
 	void Update () {
 		StartCoroutine(SpawnWalls(5));
@@ -45,5 +44,5 @@ public class FitInWallManager : MonoBehaviour {
 		yield return new WaitForSeconds(waitTime);
 		isSpawning = false;
 
-	}		
+	}
 }

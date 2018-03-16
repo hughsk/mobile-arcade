@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 using System.Collections.Generic;
 using Quobject.SocketIoClientDotNet.Client;
 
@@ -15,13 +16,17 @@ public class PlayerManager : MonoBehaviour {
 
   PlayerConnectionManager connectionManager;
 
-  Dictionary<string, Player> players;
+  [HideInInspector] public Dictionary<string, Player> players;
+  [HideInInspector] public HashSet<string> playersThatHaveDied;
 
   Transform xform;
+  bool soloPlay = true;
+  int playersLostThisRound = 0;
 
   void OnEnable () {
     xform = GetComponent<Transform>();
     players = new Dictionary<string, Player>();
+    playersThatHaveDied = new HashSet<string>();
 
     connectionManager = Bootstrap.Get<PlayerConnectionManager>();
     connectionManager.EVENT_ENTER += OnPlayerEnter;
@@ -58,6 +63,18 @@ public class PlayerManager : MonoBehaviour {
       players["1"].OnMoveTilt(Utils.KeyboardVector("z", "q", "s", "d"));
       players["0"].OnMoveTilt(Utils.KeyboardVector("i", "j", "k", "l"));
     }
+
+    var activePlayers = players.Count;
+    var remainingPlayers = activePlayers - playersThatHaveDied.Count;
+
+    // The game is in "solo" mode until at least 2 players join:
+    // when the game is being played solo, the player can move freely
+    // and the game is only restarted when the player dies.
+    soloPlay = soloPlay && (activePlayers < 2);
+
+    if (activePlayers > 0 && remainingPlayers <= (soloPlay ? 0 : 1)) {
+			SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
   }
 
   Player SpawnNewPlayer (string sessionId, Color color) {
@@ -66,6 +83,7 @@ public class PlayerManager : MonoBehaviour {
     var player = Instantiate<Player>(playerPrefab);
     var playerTransform = player.transform;
 
+    player.sessionId = sessionId;
     player.SetColor(color);
     playerTransform.SetParent(xform);
     players[sessionId] = player;
@@ -73,6 +91,11 @@ public class PlayerManager : MonoBehaviour {
     Debug.Log(sessionId);
 
     return player;
+  }
+
+  public void MakePlayerLose (Player player) {
+    Destroy(player.gameObject);
+    playersThatHaveDied.Add(player.sessionId);
   }
 
   void OnPlayerEnter (PlayerEvents.Session session) {
@@ -93,6 +116,9 @@ public class PlayerManager : MonoBehaviour {
 
   void OnPlayerLeave (PlayerEvents.Session session) {
     Player player;
+
+    Debug.Log("removing " + session.id);
+    playersThatHaveDied.Remove(session.id);
 
     if (players.TryGetValue(session.id, out player)) {
       try {
