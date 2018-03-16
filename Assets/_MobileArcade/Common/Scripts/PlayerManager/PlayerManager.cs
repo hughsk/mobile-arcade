@@ -22,7 +22,6 @@ public class PlayerManager : MonoBehaviour {
 
   Transform xform;
   bool soloPlay = true;
-  int playersLostThisRound = 0;
 
   void OnEnable () {
     xform = GetComponent<Transform>();
@@ -78,7 +77,7 @@ public class PlayerManager : MonoBehaviour {
     soloPlay = soloPlay && (activePlayers < 2);
 
     if (activePlayers > 0 && remainingPlayers <= (soloPlay ? 0 : 1)) {
-			SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+			Bootstrap.Get<GameLoader>().FinishMinigame();
     }
   }
 
