@@ -24,7 +24,6 @@ channelPlayer.on('connection', (client) => {
 
   client.on('client:input', (data) => {
     io.emit('client:input', data)
-    console.log(data)
   })
 })
 
