@@ -25,7 +25,7 @@ function Controls (client, root) {
   }
 
   function button (node, signal) {
-    var bounds = null
+    var bounds = node.getBoundingClientRect()
     var pressed = {}
     var touches = Touches(node.parentNode, {
       target: node,
