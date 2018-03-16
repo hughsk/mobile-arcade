@@ -7,23 +7,25 @@ const client = require('socket.io-client')(HOST)
 
 console.log(HOST)
 
-window.onerror = function (e) { h1.innerHTML = e.message || e }
+window.onerror = function (e) { alert(e.message || e) }
 
 const introSubtitle = document.querySelector('section[name=intro] h2')
 const changeSection = Sections('intro')
 const controls = Controls(client, document.querySelector('section[name=controller]'))
 
 client.once('connect', function () {
-  introSubtitle.innerHTML = 'tap to continue...'
-  window.addEventListener('click', tapToContinue, false)
-  window.addEventListener('ontouchstart', tapToContinue, false)
+  // introSubtitle.innerHTML = 'tap to continue...'
+  changeSection('controller')
+  // window.addEventListener('click', tapToContinue, false)
+  // window.addEventListener('ontouchstart', tapToContinue, false)
+  // window.addEventListener('ontouchend', tapToContinue, false)
 })
 
 function tapToContinue (e) {
   e.preventDefault()
-  changeSection('controller')
   window.removeEventListener('click', tapToContinue, false)
   window.removeEventListener('ontouchstart', tapToContinue, false)
+  window.removeEventListener('ontouchend', tapToContinue, false)
 }
 
 
