@@ -8,6 +8,9 @@ const client = require('socket.io-client')(HOST)
 console.log(HOST)
 
 window.onerror = function (e) { alert(e.message || e) }
+window.addEventListener('gesturestart', function (e) {
+  return e.preventDefault()
+}, false)
 
 const introSubtitle = document.querySelector('section[name=intro] h2')
 const changeSection = Sections('intro')
