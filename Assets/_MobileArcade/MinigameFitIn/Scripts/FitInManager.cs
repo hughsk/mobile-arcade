@@ -51,14 +51,4 @@ public class FitInManager : MonoBehaviour {
 			_j++;
 		}
 	}
-
-	public static void CheckRoundDone()
-	{
-		if (amountOfPlayersAlive <= 1)
-		{
-			// Restart level
-			SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-		}
-	}
-
 }

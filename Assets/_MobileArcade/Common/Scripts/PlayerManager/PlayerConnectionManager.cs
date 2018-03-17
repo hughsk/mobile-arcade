@@ -37,7 +37,6 @@ public class PlayerConnectionManager : MonoBehaviour {
 
   void OnDisable () {
     CloseSocketConnection();
-    sessions.Clear();
   }
 
   void OpenSocketConnection () {

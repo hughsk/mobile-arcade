@@ -14,3 +14,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/_MobileArcade/Common/Scenes/Scene2.unity
     guid: b78d491c191884f90a4e6dfaf5106d7e
+  - enabled: 1
+    path: Assets/_MobileArcade/Common/Scenes/ScenePlatform.unity
+    guid: b6faa44430efc394e9daa8698ab575d7
