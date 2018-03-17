@@ -67,18 +67,7 @@ public class ArenaPlayer : Player {
 		xform = GetComponent<Transform>();
 		rb = GetComponent<Rigidbody>();
 		anim = GetComponent<Animator>();
-  }
 
-	void Start () {
-		/*float angle = Random.Range(0f, Mathf.PI * 2f);
-		float _x = Mathf.Cos(angle);
-		float _z = Mathf.Sin(angle);
-
-		xform.position = centerPoint + new Vector3(_x, 0, _z) * dist;
-
-		HSBColor _hsbColor = new HSBColor(Random.Range(0f, 1f), 1, 1, 1);
-		Color _color = HSBColor.ToColor(_hsbColor);
-		GetComponent<MeshRenderer>().material.color = _color;*/
 		startParticles_lifetime = starParticles.main.startLifetime.constant;
 
 		// Dust Trails
@@ -93,7 +82,8 @@ public class ArenaPlayer : Player {
 		else {
 			throw new System.Exception("Dust Trail particle is not assigned to Player prefab");
 		}
-	}
+  }
+		
 
 	public override void SetColor (Color color) {
 		GetComponent<MeshRenderer>().material.color = color;
