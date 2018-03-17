@@ -148,6 +148,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: f9054218a566643d3b26e49d09b761c0, type: 3}
   - {fileID: 8300000, guid: 3be68d8f71de04a918b8eaa4c200d192, type: 3}
   - {fileID: 8300000, guid: 423e1d54669d14bbdb74a2c801aa700a, type: 3}
+  fallingWhistle: {fileID: 8300000, guid: e79b832077d1e4ed8bc53cec584350e4, type: 3}
 --- !u!135 &135967476826969742
 SphereCollider:
   m_ObjectHideFlags: 1

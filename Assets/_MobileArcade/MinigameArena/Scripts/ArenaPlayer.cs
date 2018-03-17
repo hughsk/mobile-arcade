@@ -44,6 +44,9 @@ public class ArenaPlayer : Player {
 
   [Header("Audio Clips")]
   [SerializeField] List<AudioClip> collidingSounds;
+	[SerializeField] AudioClip fallingWhistle;
+	GameObject whistleSoundObj;
+	AudioSource whistleSoundAudiosource;
 
 	// Useful so players won't instantiate multiple sounds at once during a collision
     bool canPlay;
@@ -56,6 +59,9 @@ public class ArenaPlayer : Player {
 
 	// Makes sure you don't get your velocity mirrored twice when touching 2 barriers at once
 	bool touchedBarrier;
+
+
+
 
   void OnEnable () {
 		xform = GetComponent<Transform>();
@@ -103,6 +109,31 @@ public class ArenaPlayer : Player {
 		arrowMatrix = matrix * Matrix4x4.Scale(Vector3.one * arrowScale);
 
 		Graphics.DrawMesh(arrowMesh, arrowMatrix, arrowMaterial, LayerMask.NameToLayer("Default"), Camera.main);
+
+
+		// Whistle sound if player is falling
+		if (rb.velocity.y < -0.2 && whistleSoundObj == null)
+		{
+			print(rb.velocity.y);
+			whistleSoundObj = new GameObject("Whistle Sound");
+			whistleSoundObj.transform.SetParent(transform);
+			whistleSoundObj.transform.position = transform.position;
+
+			whistleSoundAudiosource = whistleSoundObj.AddComponent<AudioSource>();
+			whistleSoundAudiosource.PlayOneShot(fallingWhistle);
+			Destroy(whistleSoundObj,fallingWhistle.length);
+		}
+
+		// Lower the volume repetitively
+		else if (whistleSoundObj != null)
+		{
+			whistleSoundAudiosource.volume-= 0.007f;
+
+			if (rb.velocity.y >= 0)
+			{
+				Destroy(whistleSoundObj);
+			}
+		}
 
 	}
 
@@ -186,22 +217,13 @@ public class ArenaPlayer : Player {
 
 				AudioSource _soundObj_audioSource = _soundObj.AddComponent<AudioSource>();
 				//_soundObj_audioSource.pitch = Map(lastVelocity.magnitude, 0f, velocityLimit, 0.8f, 1.2f, true);
-				_soundObj_audioSource.GetComponent<AudioSource>().PlayOneShot(collidingSounds[_r]);
+				_soundObj_audioSource.PlayOneShot(collidingSounds[_r]);
 				Destroy(_soundObj, collidingSounds[_r].length);
 			}
 
 		}
 	}
-
-	/*float Map(float x, float in_min, float in_max, float out_min, float out_max, bool shouldClamp)
-	{
-		float result =  (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
-		if (shouldClamp)
-		{
-			result = Mathf.Clamp(result, out_min, out_max);
-		}
-		return result;
-	}*/
+		
 
 	// Makes sure you don't get your velocity mirrored twice when touching 2 barriers at once
 	IEnumerator DontMirrorVelocity(float waitTime)
