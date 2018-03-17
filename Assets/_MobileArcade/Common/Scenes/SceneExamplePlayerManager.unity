@@ -647,4 +647,4 @@ MonoBehaviour:
   distFromCenter: 0.3
   barrier: {fileID: 1628864669321390, guid: 8bf9ab52a74dc4b73bb48ca959a0c49d, type: 2}
   bDistFromCenter: 0.75
-  amountOfBarriers: 20
+  amountOfBarriers: 12
