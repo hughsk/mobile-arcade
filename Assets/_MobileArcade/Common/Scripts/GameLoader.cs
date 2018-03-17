@@ -17,9 +17,16 @@ public class GameLoader : MonoBehaviour {
 	}
 
 	int GetRandomScene () {
-		return Mathf.FloorToInt(
-			Random.Range(1, SceneManager.sceneCountInBuildSettings)
-		);
+		int currScene = SceneManager.GetActiveScene().buildIndex;
+		int nextScene = currScene;
+
+		while (currScene == nextScene) {
+			nextScene = Mathf.FloorToInt(
+				Random.Range(1, SceneManager.sceneCountInBuildSettings)
+			);
+		}
+
+		return nextScene;
 	}
 
 	public void FinishMinigame () {

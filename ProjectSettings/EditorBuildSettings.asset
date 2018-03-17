@@ -6,7 +6,7 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/_MobileArcade/Common/Scenes/BootstrapScene.unity
+    path: Assets/_MobileArcade/Common/Scenes/SceneBootstrap.unity
     guid: a392e9d222bf7b74c92c6184e44d79fd
   - enabled: 1
     path: Assets/_MobileArcade/Common/Scenes/SceneExamplePlayerManager.unity
