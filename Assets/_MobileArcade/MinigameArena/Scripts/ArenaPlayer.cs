@@ -44,14 +44,20 @@ public class ArenaPlayer : Player {
 
   [Header("Audio Clips")]
   [SerializeField] List<AudioClip> collidingSounds;
-  bool canPlay;
+
+	// Useful so players won't instantiate multiple sounds at once during a collision
+    bool canPlay;
 
 	Transform xform;
 	Matrix4x4 arrowMatrix = Matrix4x4.identity;
 
+	// Used for the collision animation
+	Animator anim;
+
   void OnEnable () {
 		xform = GetComponent<Transform>();
 		rb = GetComponent<Rigidbody>();
+		anim = GetComponent<Animator>();
   }
 
 	void Start () {
@@ -94,12 +100,16 @@ public class ArenaPlayer : Player {
 		arrowMatrix = matrix * Matrix4x4.Scale(Vector3.one * arrowScale);
 
 		Graphics.DrawMesh(arrowMesh, arrowMatrix, arrowMaterial, LayerMask.NameToLayer("Default"), Camera.main);
+
 	}
 
 
 	void FixedUpdate() {
 		lastVelocity = rb.velocity;
 		canPlay = true;
+
+		// Animation
+		anim.SetBool("isColliding", false);
 
 		rb.AddForce(direction * accelerationSpeed);
 
@@ -130,6 +140,9 @@ public class ArenaPlayer : Player {
 			// Reflection bouncing
 			Vector3 _otherVelocity = _col.transform.GetComponent<ArenaPlayer>().lastVelocity;
 			rb.velocity = lastVelocity / 4 + (_otherVelocity / 2)*bouncingForce;
+
+			// Collision animation
+			anim.SetBool("isColliding", true);
 
 			// Star Particles effect
 			ParticleSystem _starParticles = Instantiate(
