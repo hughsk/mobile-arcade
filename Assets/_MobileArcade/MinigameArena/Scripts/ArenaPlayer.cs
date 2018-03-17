@@ -54,6 +54,9 @@ public class ArenaPlayer : Player {
 	// Used for the collision animation
 	Animator anim;
 
+	// Makes sure you don't get your velocity mirrored twice when touching 2 barriers at once
+	bool touchedBarrier;
+
   void OnEnable () {
 		xform = GetComponent<Transform>();
 		rb = GetComponent<Rigidbody>();
@@ -141,6 +144,20 @@ public class ArenaPlayer : Player {
 			Vector3 _otherVelocity = _col.transform.GetComponent<ArenaPlayer>().lastVelocity;
 			rb.velocity = lastVelocity / 4 + (_otherVelocity / 2)*bouncingForce;
 
+		}
+
+		else if (_col.gameObject.tag == "Barrier" && touchedBarrier == false)
+		{
+			// Mirror bouncing
+			rb.velocity = -lastVelocity;
+			// Makes sure you don't get your velocity mirrored twice when touching 2 barriers at once
+			StartCoroutine(DontMirrorVelocity(0.1f));
+			Destroy(_col.gameObject);
+		}
+
+		if (_col.gameObject.tag == "Player" || 
+			_col.gameObject.tag == "Barrier")
+		{
 			// Collision animation
 			anim.SetBool("isColliding", true);
 
@@ -156,7 +173,9 @@ public class ArenaPlayer : Player {
 			if (canPlay)
 			{
 				// Makes sure two sounds won't play at the same time
-				_col.collider.GetComponent<ArenaPlayer>().canPlay = false;
+				ArenaPlayer _arenaPlayer = _col.collider.GetComponent<ArenaPlayer>();
+				if (_arenaPlayer != null)
+					_col.collider.GetComponent<ArenaPlayer>().canPlay = false;
 
 				// Make new GameObject for a sound
 				int _r = Random.Range(0, collidingSounds.Count);
@@ -169,7 +188,6 @@ public class ArenaPlayer : Player {
 				//_soundObj_audioSource.pitch = Map(lastVelocity.magnitude, 0f, velocityLimit, 0.8f, 1.2f, true);
 				_soundObj_audioSource.GetComponent<AudioSource>().PlayOneShot(collidingSounds[_r]);
 				Destroy(_soundObj, collidingSounds[_r].length);
-
 			}
 
 		}
@@ -184,4 +202,12 @@ public class ArenaPlayer : Player {
 		}
 		return result;
 	}*/
+
+	// Makes sure you don't get your velocity mirrored twice when touching 2 barriers at once
+	IEnumerator DontMirrorVelocity(float waitTime)
+	{
+		touchedBarrier = true;
+		yield return new WaitForSeconds(waitTime);
+		touchedBarrier = false;
+	}
 }

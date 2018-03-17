@@ -10,6 +10,12 @@ public class ArenaManager : MonoBehaviour {
   [SerializeField] Vector3 centerPoint;
   // Distance from centerpoint
   [SerializeField] float distFromCenter;
+	[Space(10)]
+
+	[Header("Barrier")]
+	[SerializeField] GameObject barrier;
+	[SerializeField] float bDistFromCenter;
+	[SerializeField] int amountOfBarriers;
 
   PlayerManager playerManager;
 
@@ -19,6 +25,7 @@ public class ArenaManager : MonoBehaviour {
 		playerManager = GetComponent<PlayerManager>();
 
 		CircularSpawnPoints();
+		CircularBarriers(amountOfBarriers);
   }
 
 	void CircularSpawnPoints()
@@ -33,6 +40,18 @@ public class ArenaManager : MonoBehaviour {
 
 			player.transform.position = centerPoint + new Vector3(_x, 0, _z) * distFromCenter;
 			i++;
+		}
+	}
+
+	void CircularBarriers(int _amountOfBarriers)
+	{
+		for (int i = 0; i < _amountOfBarriers; i++)
+		{
+			float _x = Mathf.Cos((2*Mathf.PI / _amountOfBarriers) * i);
+			float _z = Mathf.Sin((2*Mathf.PI / _amountOfBarriers) * i);
+
+			GameObject _barrier = Instantiate(barrier, centerPoint + new Vector3(_x, 0, _z) * bDistFromCenter, Quaternion.identity);
+			_barrier.transform.LookAt(centerPoint);
 		}
 	}
 }

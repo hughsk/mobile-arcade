@@ -645,3 +645,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   centerPoint: {x: 0, y: -0.1, z: 0}
   distFromCenter: 0.3
+  barrier: {fileID: 1628864669321390, guid: 8bf9ab52a74dc4b73bb48ca959a0c49d, type: 2}
+  bDistFromCenter: 0.75
+  amountOfBarriers: 20
