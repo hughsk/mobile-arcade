@@ -111,6 +111,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f64412dd69ea3ed4b92fc23b7d292fc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sessionId: 
   accelerationSpeed: 0.5
   velocityLimit: 0.5
   bouncingForce: 2
@@ -120,6 +121,8 @@ MonoBehaviour:
   arrowOutOffset: 0.065
   arrowScale: 1.89
   starParticles: {fileID: 198316255052784780, guid: 66bed0f0d01574d609d151df0507793b,
+    type: 2}
+  dustTrails: {fileID: 198894985871165644, guid: e0f7cffd061674addb0620235a3131d1,
     type: 2}
   collidingSounds:
   - {fileID: 8300000, guid: d1f28b115f80a4ce19750499be1a893a, type: 3}

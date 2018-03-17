@@ -37,6 +37,8 @@ public class ArenaPlayer : Player {
   // Star particles (used when two players collide)
   [SerializeField] ParticleSystem starParticles;
   float startParticles_lifetime;
+  // Dust trail particles (used when the player moves)
+  [SerializeField] ParticleSystem dustTrails; // The prefab
   [Space(10)]
 
 
@@ -63,6 +65,19 @@ public class ArenaPlayer : Player {
 		Color _color = HSBColor.ToColor(_hsbColor);
 		GetComponent<MeshRenderer>().material.color = _color;*/
 		startParticles_lifetime = starParticles.main.startLifetime.constant;
+
+		// Dust Trails
+		if (dustTrails != null)
+		{
+			ParticleSystem _playerDustTrails= Instantiate(dustTrails, transform.position, Quaternion.identity);
+			_playerDustTrails.gameObject.name = "Dust Trail Effect";
+			_playerDustTrails.transform.SetParent(transform, true);
+			_playerDustTrails.transform.localScale = dustTrails.transform.localScale;
+		}
+
+		else {
+			throw new System.Exception("Dust Trail particle is not assigned to Player prefab");
+		}
 	}
 
 	public override void SetColor (Color color) {
