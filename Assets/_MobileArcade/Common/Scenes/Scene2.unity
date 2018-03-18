@@ -380,7 +380,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -894884168
+  randomSeed: 1507603507
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -4498,7 +4498,7 @@ MonoBehaviour:
   obstacleSpeedMax: 0.7
   initialSpawnPerSecond: 5
   substactTimePerSpawn: 0.2
-  minSpawnPerSecond: 1
+  minSpawnPerSecond: 2
 --- !u!1001 &2002631405
 Prefab:
   m_ObjectHideFlags: 0

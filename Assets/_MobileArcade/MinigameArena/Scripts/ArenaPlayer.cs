@@ -47,7 +47,6 @@ public class ArenaPlayer : Player {
 	[SerializeField] AudioClip fallingWhistle;
 	GameObject whistleSoundObj;
 	AudioSource whistleSoundAudiosource;
-
 	// Useful so players won't instantiate multiple sounds at once during a collision
     bool canPlay;
 
@@ -59,6 +58,7 @@ public class ArenaPlayer : Player {
 
 	// Makes sure you don't get your velocity mirrored twice when touching 2 barriers at once
 	bool touchedBarrier;
+	bool touchedObstacle;
 
 
 
@@ -138,7 +138,7 @@ public class ArenaPlayer : Player {
 		rb.AddForce(direction * accelerationSpeed);
 
 		// CLamping the velocity on the X and Z values
-		if (Mathf.Sqrt(Mathf.Pow(rb.velocity.x, 2) + Mathf.Pow(rb.velocity.z, 2))  > velocityLimit){
+		if (Mathf.Sqrt(Mathf.Pow(rb.velocity.x, 2) + Mathf.Pow(rb.velocity.z, 2))  > velocityLimit && !touchedObstacle){
 			float y = rb.velocity.y;
 
 			// velocity with only X and Z
@@ -147,7 +147,6 @@ public class ArenaPlayer : Player {
 
 			rb.velocity = new Vector3(_clamped2DVelocity.x, y, _clamped2DVelocity.y);
 		}
-
 		/*if (rb.velocity.magnitude > velocityLimit){
 			rb.velocity = Vector3.ClampMagnitude(rb.velocity, velocityLimit);
 		}*/
@@ -167,14 +166,19 @@ public class ArenaPlayer : Player {
 
 		}
 
-		else if (_col.gameObject.tag == "Obstacle")
+		else if (_col.gameObject.tag == "Obstacle" && !touchedObstacle)
 		{
-			// Mirror bouncing
-			rb.velocity = -lastVelocity;
-
+			
+			//if (Mathf.Sign(rb.velocity.z) == 1)
+			//{
+				print(rb.velocity);
+				rb.velocity = -2 * lastVelocity;
+				StartCoroutine(AllowVelocityIncrease(5));
+			//}
+				//rb.velocity = -lastVelocity * _col.transform.GetComponentInParent<FitInObstacle>().speed;
 		}
 
-		else if (_col.gameObject.tag == "Barrier" && touchedBarrier == false)
+		else if (_col.gameObject.tag == "Barrier" && !touchedBarrier)
 		{
 			// Mirror bouncing
 			rb.velocity = -lastVelocity;
@@ -230,4 +234,19 @@ public class ArenaPlayer : Player {
 		yield return new WaitForSeconds(waitTime);
 		touchedBarrier = false;
 	}
+
+	IEnumerator AllowVelocityIncrease(float waitTime)
+	{
+		touchedObstacle = true;
+		yield return new WaitForSeconds(waitTime);
+		touchedObstacle = false;
+	}
+
+	// Set a bool variable to true for time in seconds
+	/*IEnumerator TempTrue(out bool _boolean, float _waitTime)
+	{
+		_boolean = true;
+		yield return new WaitForSeconds(_waitTime);
+		_boolean = false;
+	}*/
 }

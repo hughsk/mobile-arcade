@@ -46,9 +46,14 @@ public class FitInObstacleManager : MonoBehaviour {
 		int _r = Random.Range(0, obstacles.Count);
 		GameObject _obstacle = Instantiate(obstacles[_r], obstacleSpawnPoint, obstacles[_r].transform.rotation);
 
-		int _amountOfObsctacles = _obstacle.transform.childCount;
-		int _randomObstacle = Random.Range(0, _amountOfObsctacles);
-		Destroy(_obstacle.transform.GetChild(_randomObstacle).gameObject);
+		int _amountOfObstaclesToDestroy = Random.Range(1, _obstacle.transform.childCount);
+
+		for (int i = 0; i < _amountOfObstaclesToDestroy; i++)
+		{
+			int _randomObstacleNr = Random.Range(0, _amountOfObstaclesToDestroy);
+			Destroy(_obstacle.transform.GetChild(_randomObstacleNr).gameObject);
+			_amountOfObstaclesToDestroy--;
+		}
 		_obstacle.transform.position = obstacleSpawnPoint;
 	
 		_obstacle.GetComponent<FitInObstacle>().speed = obstacleSpeedCurrent;
