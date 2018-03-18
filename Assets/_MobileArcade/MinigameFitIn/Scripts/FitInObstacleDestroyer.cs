@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FitInDestroyWalls : MonoBehaviour {
+public class FitInObstacleDestroyer : MonoBehaviour {
 
 	void OnTriggerEnter(Collider coll)
 	{
-		if (coll.tag == "Wall")
+		if (coll.tag == "Obstacle")
 		{
 			// Destroy the whole group of walls at once
-			if (coll.transform.parent.GetComponent<FitInWall>() != null)
+			if (coll.transform.parent.GetComponent<FitInObstacle>() != null)
 			{
 				Destroy(coll.transform.parent.gameObject);
 			}

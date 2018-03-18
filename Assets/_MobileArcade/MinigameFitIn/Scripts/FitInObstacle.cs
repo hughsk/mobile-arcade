@@ -2,22 +2,22 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FitInWall : MonoBehaviour {
+public class FitInObstacle : MonoBehaviour {
 	/*[Header("Spawn Point")]
 	[SerializeField] Vector3 spawnPoint;
 	[Space(10)]*/
 
-	[Header("Wall Movement")]
+	[Header("obstacles Movement")]
 
-	// Speed at which the wall is moving
+	// Speed at which the obstacle is moving
 	[HideInInspector] public float speed;
 
-	// Rigidbodies of 1 or more Walls
+	// Rigidbodies of 1 or more obstacles
 	Rigidbody[] rbs;
 
 	// Use this for initialization
 	void OnEnable () {
-		// Check if this gameObject is a parent of walls, acting as a folder/empty GameObject
+		// Check if this gameObject is a parent of obstacles, acting as a folder/empty GameObject
 		if (GetComponent<Renderer>() == null &&
 			transform.childCount > 0)
 		{
@@ -26,14 +26,14 @@ public class FitInWall : MonoBehaviour {
 			{
 				rb.isKinematic = true;
 				rb.useGravity = false;
-				rb.gameObject.tag = "Wall";
+				rb.gameObject.tag = "Obstacle";
 			}
 		}
 
-		// Else it's a wall in itself.
+		// Else it's a obstacle in itself.
 		else 
 		{
-			gameObject.tag = "Wall";
+			gameObject.tag = "Obstacle";
 			rbs[0] = GetComponent<Rigidbody>();
 		}
 	}
@@ -44,7 +44,8 @@ public class FitInWall : MonoBehaviour {
 
 		foreach(Rigidbody rb in rbs)
 		{
-			rb.MovePosition(rb.transform.position - newPos);
+			if (rb != null)
+				rb.MovePosition(rb.transform.position - newPos);
 		}
 	}
 }

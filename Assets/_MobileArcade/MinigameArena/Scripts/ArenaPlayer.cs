@@ -167,6 +167,13 @@ public class ArenaPlayer : Player {
 
 		}
 
+		else if (_col.gameObject.tag == "Obstacle")
+		{
+			// Mirror bouncing
+			rb.velocity = -lastVelocity;
+
+		}
+
 		else if (_col.gameObject.tag == "Barrier" && touchedBarrier == false)
 		{
 			// Mirror bouncing
@@ -177,7 +184,8 @@ public class ArenaPlayer : Player {
 		}
 
 		if (_col.gameObject.tag == "Player" || 
-			_col.gameObject.tag == "Barrier")
+			_col.gameObject.tag == "Barrier" ||
+			_col.gameObject.tag == "Obstacle")
 		{
 			// Collision animation
 			anim.SetBool("isColliding", true);
