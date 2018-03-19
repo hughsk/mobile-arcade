@@ -4492,7 +4492,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   obstacles:
   - {fileID: 1638669884051770, guid: 12e90e59cf36946ebaefbd4eb46ed04e, type: 2}
-  obstacleSpawnPoint: {x: 0, y: 0.013, z: 2.21}
+  obstacleSpawnPoint: {x: 0, y: 0.013, z: 2.4}
   obstacleSpeedStart: 0.4
   obstacleSpeedAdditioner: 0.02
   obstacleSpeedMax: 0.7
