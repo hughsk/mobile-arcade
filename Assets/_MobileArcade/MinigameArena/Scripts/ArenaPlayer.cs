@@ -169,13 +169,8 @@ public class ArenaPlayer : Player {
 		else if (_col.gameObject.tag == "Obstacle" && !touchedObstacle)
 		{
 			
-			//if (Mathf.Sign(rb.velocity.z) == 1)
-			//{
-				print(rb.velocity);
-				rb.velocity = -2 * lastVelocity;
+				rb.velocity = -1 * lastVelocity;
 				StartCoroutine(AllowVelocityIncrease(5));
-			//}
-				//rb.velocity = -lastVelocity * _col.transform.GetComponentInParent<FitInObstacle>().speed;
 		}
 
 		else if (_col.gameObject.tag == "Barrier" && !touchedBarrier)
