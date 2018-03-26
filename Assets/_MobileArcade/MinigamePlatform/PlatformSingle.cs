@@ -42,5 +42,6 @@ public class PlatformSingle : MonoBehaviour {
     render.sharedMaterial = deadMaterial;
     yield return new WaitForSeconds(1f);
     body.isKinematic = false;
+    body.detectCollisions = false;
   }
 }
