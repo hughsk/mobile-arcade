@@ -83,10 +83,17 @@ public class ArenaPlayer : Player {
 			throw new System.Exception("Dust Trail particle is not assigned to Player prefab");
 		}
   }
-		
+
 
 	public override void SetColor (Color color) {
-		GetComponent<MeshRenderer>().material.color = color;
+		var mesh = GetComponent<MeshRenderer>();
+		if (mesh != null) {
+			mesh.material.color = color;
+			return;
+		}
+
+		var model = GetComponentInChildren<PlayerModelHandler>();
+		if (model != null) model.UpdateColor(color);
 	}
 
 	void Update () {
@@ -168,7 +175,7 @@ public class ArenaPlayer : Player {
 
 		else if (_col.gameObject.tag == "Obstacle" && !touchedObstacle)
 		{
-			
+
 				rb.velocity = -1 * lastVelocity;
 				StartCoroutine(AllowVelocityIncrease(5));
 		}
@@ -182,7 +189,7 @@ public class ArenaPlayer : Player {
 			Destroy(_col.gameObject);
 		}
 
-		if (_col.gameObject.tag == "Player" || 
+		if (_col.gameObject.tag == "Player" ||
 			_col.gameObject.tag == "Barrier" ||
 			_col.gameObject.tag == "Obstacle")
 		{
@@ -220,7 +227,7 @@ public class ArenaPlayer : Player {
 
 		}
 	}
-		
+
 
 	// Makes sure you don't get your velocity mirrored twice when touching 2 barriers at once
 	IEnumerator DontMirrorVelocity(float waitTime)
