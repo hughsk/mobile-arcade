@@ -4,7 +4,7 @@ module.exports = Controls
 
 function Controls (client, root) {
   button(root.querySelector('[name=direction]'), sendForType('tilt'))
-  button(root.querySelector('[name=action]'), sendForType('action'))
+  // button(root.querySelector('[name=action]'), sendForType('action'))
 
   function sendForType (type) {
     return function (enabled, x, y) {
