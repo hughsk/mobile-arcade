@@ -1123,7 +1123,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed46b078c815a458da02f8a134550b1d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerManager: {fileID: 0}
+  playerManager: {fileID: 1945896671}
 --- !u!33 &909487879
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -2466,6 +2466,14 @@ Prefab:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 4.497
       objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: b6dbb5d4a2634c642b110457e8678c58, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6400002, guid: b6dbb5d4a2634c642b110457e8678c58, type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b6dbb5d4a2634c642b110457e8678c58, type: 3}
   m_IsPrefabParent: 0
@@ -2742,10 +2750,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b16f6c37682d4014ba898567cd877ab6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerPrefab: {fileID: 114442216371665540, guid: 9d54f19e310a249a18c78a2a3d9329aa,
+  playerPrefab: {fileID: 114442070480782222, guid: 2af523198dc22844f99f4d2c262262ac,
     type: 2}
-  testPlayers: 1
-  WASDControls: 1
+  testPlayers: 0
+  WASDControls: 0
 --- !u!4 &1945896672
 Transform:
   m_ObjectHideFlags: 0
@@ -2772,9 +2780,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   centerPoint: {x: 0, y: -0.1, z: 0}
   distFromCenter: 0.3
-  barrier: {fileID: 0}
-  bDistFromCenter: 0
-  amountOfBarriers: 0
+  barrier: {fileID: 1628864669321390, guid: 8bf9ab52a74dc4b73bb48ca959a0c49d, type: 2}
+  bDistFromCenter: 0.5
+  amountOfBarriers: 8
 --- !u!1001 &1966066013
 Prefab:
   m_ObjectHideFlags: 0

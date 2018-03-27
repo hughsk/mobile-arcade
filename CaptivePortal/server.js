@@ -55,8 +55,10 @@ function toRGB (id, color) {
   }
 }
 
+var colorCount = 12
+
 function populateColors () {
-  for (var i = 0; i < 30; i++) {
-    colors[i] = interpolateRainbow(i / 29)
+  for (var i = 0; i < colorCount; i++) {
+    colors[i] = interpolateRainbow(i / colorCount)
   }
 }

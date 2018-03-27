@@ -6,7 +6,7 @@
     "prod": "browserify -i index.js -o static/bundle.js && node server",
     "start": "npm-run-all -p start:*",
     "start:bundle": "watchify index.js -o static/bundle.js",
-    "start:server": "DEBUG=socket.io:server node server"
+    "start:server": "node server"
   },
   "dependencies": {
     "@hughsk/fulltilt": "^0.7.1",
