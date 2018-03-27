@@ -4492,13 +4492,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   obstacles:
   - {fileID: 1638669884051770, guid: 12e90e59cf36946ebaefbd4eb46ed04e, type: 2}
-  obstacleSpawnPoint: {x: 0, y: 0.013, z: 2.4}
-  obstacleSpeedStart: 0.4
-  obstacleSpeedAdditioner: 0.02
+  obstacleSpawnPoint: {x: 0, y: 0.013, z: 2.6}
+  obstacleSpeedStart: 0.3
+  obstacleSpeedAdditioner: 0.04
   obstacleSpeedMax: 0.7
-  initialSpawnPerSecond: 5
-  substactTimePerSpawn: 0.2
-  minSpawnPerSecond: 2
+  initialSpawnPerSecond: 7
+  substactTimePerSpawn: 0.5
+  minSpawnPerSecond: 2.5
 --- !u!1001 &2002631405
 Prefab:
   m_ObjectHideFlags: 0
