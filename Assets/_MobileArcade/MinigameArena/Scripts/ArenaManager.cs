@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(PlayerManager))]
-public class ArenaManager : MonoBehaviour {
+public class ArenaManager : LevelManager {
 
   [Header("Player Spawn Points")]
   // Spawn points variables
@@ -19,9 +19,9 @@ public class ArenaManager : MonoBehaviour {
 
   PlayerManager playerManager;
 
-  void OnEnable () {
+	public override void OnEnable () {
 
-	Physics.gravity = new Vector3(0, -0.5f, 0);
+		base.OnEnable();
 		playerManager = GetComponent<PlayerManager>();
 
 		CircularSpawnPoints();

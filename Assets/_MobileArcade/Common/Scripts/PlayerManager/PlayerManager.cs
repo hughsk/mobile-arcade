@@ -2,6 +2,7 @@
 using UnityEngine.SceneManagement;
 using System.Collections.Generic;
 using Quobject.SocketIoClientDotNet.Client;
+using System.Collections;
 
 /// <summary>
 /// Accepts incoming player connections, disconnections and input events from
@@ -9,6 +10,7 @@ using Quobject.SocketIoClientDotNet.Client;
 /// and destroys it when it disconnects.
 /// </summary>
 public class PlayerManager : MonoBehaviour {
+
   [SerializeField] Player playerPrefab;
 
   [Header("Debug Options")]
@@ -133,4 +135,5 @@ public class PlayerManager : MonoBehaviour {
       players.Remove(session.id);
     }
   }
+		
 }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(PlayerManager))]
-public class FitInManager : MonoBehaviour {
+public class FitInManager : LevelManager {
 
   [Header("Player Spawn Points")]
   // Spawn points variables
@@ -18,9 +18,9 @@ public class FitInManager : MonoBehaviour {
 
   PlayerManager playerManager;
 
-  void OnEnable () {
+	public override void OnEnable () {
 
-	Physics.gravity = new Vector3(0, -0.5f, 0);
+	base.OnEnable();
 	playerManager = GetComponent<PlayerManager>();
 
 	amountOfPlayers = transform.childCount;

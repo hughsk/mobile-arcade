@@ -4448,9 +4448,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b16f6c37682d4014ba898567cd877ab6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerPrefab: {fileID: 114442216371665540, guid: 9d54f19e310a249a18c78a2a3d9329aa,
+  playerPrefab: {fileID: 114522766536940320, guid: 271516b45d80b4dd89dcb7c50b3de5ca,
     type: 2}
-  testPlayers: 0
+  testPlayers: 1
   WASDControls: 0
 --- !u!4 &1945896672
 Transform:
@@ -4476,6 +4476,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be170cf7fbca94eeea3fae530357c899, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  UICanvasPrefab: {fileID: 224555849571365052, guid: 9c1e03a17ef8f4e678d081f97eed2d41,
+    type: 2}
+  UICountdownPrefab: {fileID: 1673187609663282, guid: 1cb7aace35e664fabbc3e393b1e23e93,
+    type: 2}
   centerPoint: {x: 0, y: -0.027, z: -0.462}
   distBetweenPlayers: 0.2
   amountOfPlayersOnRow: 4

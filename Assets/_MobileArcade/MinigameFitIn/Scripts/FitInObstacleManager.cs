@@ -33,6 +33,8 @@ public class FitInObstacleManager : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
+		if (!LevelManager.isCountdownOver) return;
+
 		StartCoroutine(SpawnObstacles(currentSpawnPerSecond));
 	}
 

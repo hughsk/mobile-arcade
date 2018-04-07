@@ -21,4 +21,5 @@ public abstract class Player : MonoBehaviour {
   /// </param>
   public abstract void SetColor (Color color);
   public virtual void OnMoveTilt (Vector2 movement) {}
+
 }
