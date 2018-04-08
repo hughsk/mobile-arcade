@@ -34,6 +34,7 @@ public class BallPlayer : Player {
 	float startParticles_lifetime;
 	// Dust trail particles (used when the player moves)
 	[SerializeField] ParticleSystem dustTrails; // The prefab
+	protected ParticleSystem playerDustTrails; 
 	[Space(10)]
 
 
@@ -60,18 +61,7 @@ public class BallPlayer : Player {
 
 		startParticles_lifetime = starParticles.main.startLifetime.constant;
 
-		// Dust Trails
-		if (dustTrails != null)
-		{
-			ParticleSystem _playerDustTrails= Instantiate(dustTrails, transform.position, Quaternion.identity);
-			_playerDustTrails.gameObject.name = "Dust Trail Effect";
-			_playerDustTrails.transform.SetParent(transform, true);
-			_playerDustTrails.transform.localScale = dustTrails.transform.localScale;
-		}
-
-		else {
-			throw new System.Exception("Dust Trail particle is not assigned to Player prefab");
-		}
+		DustTrail();
 	}
 
 	public virtual void Update () {
@@ -159,6 +149,22 @@ public class BallPlayer : Player {
 
 	public override void OnMoveTilt(Vector2 _movement) {
 		direction = new Vector3(_movement.x, 0, _movement.y);
+	}
+
+	public virtual void DustTrail()
+	{
+		// Dust Trails
+		if (dustTrails != null)
+		{
+			playerDustTrails = Instantiate(dustTrails, transform.position, Quaternion.identity);
+			playerDustTrails.gameObject.name = "Dust Trail Effect";
+			playerDustTrails.transform.SetParent(transform, true);
+			playerDustTrails.transform.localScale = dustTrails.transform.localScale;
+		}
+
+		else {
+			throw new System.Exception("Dust Trail particle is not assigned to Player prefab");
+		}
 	}
 
 	public virtual void OnCollisionEnter(Collision _col)

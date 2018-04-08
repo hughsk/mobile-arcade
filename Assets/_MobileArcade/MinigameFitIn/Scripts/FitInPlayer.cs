@@ -8,6 +8,10 @@ using UnityEngine;
 /// </summary>
 [RequireComponent(typeof(Rigidbody))]
 public class FitInPlayer : BallPlayer {
+	[Space(10)]
+	[Header("Snow Trail")]
+	[SerializeField] float snowTrailDist; // dist between particle and player
+
   // Makes sure you don't get your velocity mirrored twice when touching 2 obstacles at once
   bool touchedObstacle;
 
@@ -19,6 +23,7 @@ public class FitInPlayer : BallPlayer {
 			base.ClampingSpeed();
 		}
 	}
+		
   
 	public override void OnCollisionEnter(Collision _col)
 	{

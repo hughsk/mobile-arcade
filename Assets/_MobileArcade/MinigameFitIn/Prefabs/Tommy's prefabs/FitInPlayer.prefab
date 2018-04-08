@@ -140,7 +140,7 @@ MonoBehaviour:
   arrowScale: 1.89
   starParticles: {fileID: 198316255052784780, guid: 66bed0f0d01574d609d151df0507793b,
     type: 2}
-  dustTrails: {fileID: 198894985871165644, guid: e0f7cffd061674addb0620235a3131d1,
+  dustTrails: {fileID: 198894985871165644, guid: 04c1beb275fe54228a119fb43df701c7,
     type: 2}
   collidingSounds:
   - {fileID: 8300000, guid: d1f28b115f80a4ce19750499be1a893a, type: 3}
@@ -149,6 +149,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 3be68d8f71de04a918b8eaa4c200d192, type: 3}
   - {fileID: 8300000, guid: 423e1d54669d14bbdb74a2c801aa700a, type: 3}
   fallingWhistle: {fileID: 8300000, guid: e79b832077d1e4ed8bc53cec584350e4, type: 3}
+  snowTrailDist: -1
 --- !u!135 &135967476826969742
 SphereCollider:
   m_ObjectHideFlags: 1
