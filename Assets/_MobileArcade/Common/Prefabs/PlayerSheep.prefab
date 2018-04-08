@@ -1372,7 +1372,7 @@ MonoBehaviour:
   velocityLimit: 0.5
   bouncingForce: 2
   arrowMesh: {fileID: 4300000, guid: b3ed5449fc99a924983d8eea85032a49, type: 3}
-  arrowMaterial: {fileID: 2100000, guid: b3ed5449fc99a924983d8eea85032a49, type: 3}
+  arrowMaterial: {fileID: 2100000, guid: 652557a17399d4906b893f05c396b516, type: 2}
   arrowUpOffset: 0
   arrowOutOffset: 0.065
   arrowScale: 1.89
