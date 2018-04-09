@@ -13,8 +13,8 @@ public class FitInManager : LevelManager {
   // How many players should be aligned in a row, until a new row appears infront
   [SerializeField] int amountOfPlayersOnRow;
 
-	public override void OnEnable () {
-	base.OnEnable();
+	public override void Start () {
+		base.Start();
 
 	EquidistantSpawnPoints();
   }

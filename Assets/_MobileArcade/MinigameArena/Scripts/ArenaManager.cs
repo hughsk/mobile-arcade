@@ -19,8 +19,8 @@ public class ArenaManager : LevelManager {
 
   
 
-	public override void OnEnable () {
-		base.OnEnable();
+	public override void Start () {
+		base.Start();
 
 		CircularSpawnPoints();
 		CircularBarriers(amountOfBarriers);
@@ -28,6 +28,7 @@ public class ArenaManager : LevelManager {
 
 	void CircularSpawnPoints()
 	{
+		//print("Arena Manager Circular Spawn Points");
 		players = playerManager.players;
 		int count = players.Count;
 		int i = 0;
