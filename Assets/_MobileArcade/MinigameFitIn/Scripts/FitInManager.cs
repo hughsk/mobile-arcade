@@ -13,32 +13,26 @@ public class FitInManager : LevelManager {
   // How many players should be aligned in a row, until a new row appears infront
   [SerializeField] int amountOfPlayersOnRow;
 
-  int amountOfPlayers;
-  public static int amountOfPlayersAlive;
+	public override void Start () {
+		base.Start();
 
-  PlayerManager playerManager;
-
-	public override void OnEnable () {
-
-	base.OnEnable();
-	playerManager = GetComponent<PlayerManager>();
-
-	amountOfPlayers = transform.childCount;
-	amountOfPlayersAlive = amountOfPlayers;
 	EquidistantSpawnPoints();
   }
 
 	void EquidistantSpawnPoints()
 	{
+		players = playerManager.players;
+		int count = players.Count;
+
 		// Makes sure it stays centered
-		if (amountOfPlayersOnRow > amountOfPlayers)
+		if (amountOfPlayersOnRow > count)
 		{
-			amountOfPlayersOnRow = amountOfPlayers;
+			amountOfPlayersOnRow = count;
 		}
 
 		int _j = 0;
 
-		for (int i = 0; i < amountOfPlayers; i++)
+		for (int i = 0; i < count; i++)
 		{
 			if (_j >= amountOfPlayersOnRow)
 			{

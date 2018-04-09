@@ -13936,7 +13936,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b16f6c37682d4014ba898567cd877ab6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerPrefab: {fileID: 114442070480782222, guid: 2af523198dc22844f99f4d2c262262ac,
+  playerPrefab: {fileID: 114442070480782222, guid: 788120d50e69245fdaf5a1607a12b98e,
     type: 2}
   testPlayers: 1
   WASDControls: 0

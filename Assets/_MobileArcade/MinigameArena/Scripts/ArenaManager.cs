@@ -17,12 +17,10 @@ public class ArenaManager : LevelManager {
 	[SerializeField] float bDistFromCenter;
 	[SerializeField] int amountOfBarriers;
 
-  PlayerManager playerManager;
+  
 
-	public override void OnEnable () {
-
-		base.OnEnable();
-		playerManager = GetComponent<PlayerManager>();
+	public override void Start () {
+		base.Start();
 
 		CircularSpawnPoints();
 		CircularBarriers(amountOfBarriers);
@@ -30,7 +28,8 @@ public class ArenaManager : LevelManager {
 
 	void CircularSpawnPoints()
 	{
-		var players = playerManager.players;
+		//print("Arena Manager Circular Spawn Points");
+		players = playerManager.players;
 		int count = players.Count;
 		int i = 0;
 
@@ -45,6 +44,9 @@ public class ArenaManager : LevelManager {
 
 	void CircularBarriers(int _amountOfBarriers)
 	{
+		if (barrier == null)
+			return;
+
 		for (int i = 0; i < _amountOfBarriers; i++)
 		{
 			float _x = Mathf.Cos((2*Mathf.PI / _amountOfBarriers) * i);

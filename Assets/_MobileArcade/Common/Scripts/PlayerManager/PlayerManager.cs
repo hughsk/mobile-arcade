@@ -26,6 +26,7 @@ public class PlayerManager : MonoBehaviour {
   bool soloPlay = true;
 
   void OnEnable () {
+
     xform = GetComponent<Transform>();
     players = new Dictionary<string, Player>();
     playersThatHaveDied = new HashSet<string>();
