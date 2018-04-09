@@ -3,16 +3,19 @@ var Touches = require('touches')
 module.exports = Controls
 
 function Controls (client, root) {
-  button(root.querySelector('[name=direction]'), sendForType('tilt'))
+  var node = root.querySelector('[name=direction]')
+
+  button(node, sendForType('tilt', node.querySelector('span')))
   // button(root.querySelector('[name=action]'), sendForType('action'))
 
-  function sendForType (type) {
+  function sendForType (type, node) {
     return function (enabled, x, y) {
       // semi-normalize (limit length of vector to 1)
       var l = Math.sqrt(x * x + y * y)
       if (l > 1) {
         x /= l
         y /= l
+      } else {
       }
 
       client.emit('client:input', {
@@ -21,22 +24,30 @@ function Controls (client, root) {
         xInput: x,
         yInput: -y
       })
+
+      if (!node) return
+
+      var vmin = Math.min(window.innerWidth, window.innerHeight)
+      var xf = (x * 0.2 * vmin).toFixed(3)
+      var yf = (y * 0.2 * vmin).toFixed(3)
+
+      // node.style.position = 'relative'
+      node.style.transform = 'translate(' + xf + 'px, ' + yf + 'px)'
     }
   }
 
   function button (node, signal) {
     var bounds = node.getBoundingClientRect()
     var pressed = {}
-    var touches = Touches(node.parentNode, {
+    var touches = Touches(window, {
       target: node,
       filtered: true,
-      preventSimulated: false
+      preventSimulated: true
     }).on('start', onTouchStart)
       .on('move', onTouchMove)
       .on('end', onTouchEnd)
 
     function onTouchStart (e, pos) {
-      if (e.target !== node) return
       e.preventDefault()
       pressed = true
       bounds = node.getBoundingClientRect()
