@@ -4502,7 +4502,24 @@ Prefab:
         type: 2}
       propertyPath: playerPrefab
       value: 
-      objectReference: {fileID: 114442070480782222, guid: 2af523198dc22844f99f4d2c262262ac,
+      objectReference: {fileID: 114442070480782222, guid: 788120d50e69245fdaf5a1607a12b98e,
+        type: 2}
+    - target: {fileID: 114486554501754008, guid: 836af3e4b20a4d8429299166cdf181f8,
+        type: 2}
+      propertyPath: WASDControls
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114070002939516820, guid: 836af3e4b20a4d8429299166cdf181f8,
+        type: 2}
+      propertyPath: UICanvasPrefab
+      value: 
+      objectReference: {fileID: 224555849571365052, guid: 9c1e03a17ef8f4e678d081f97eed2d41,
+        type: 2}
+    - target: {fileID: 114070002939516820, guid: 836af3e4b20a4d8429299166cdf181f8,
+        type: 2}
+      propertyPath: UICountdownPrefab
+      value: 
+      objectReference: {fileID: 1673187609663282, guid: 1a2dcdab795454fde8b5bd3be3475a68,
         type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 836af3e4b20a4d8429299166cdf181f8, type: 2}

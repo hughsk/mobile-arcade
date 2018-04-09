@@ -627,7 +627,7 @@ GameObject:
   - component: {fileID: 114442070480782222}
   - component: {fileID: 95070657780896386}
   m_Layer: 0
-  m_Name: PlayerSheep
+  m_Name: ArenaPlayer2
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
