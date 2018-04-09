@@ -1,0 +1,143 @@
+fileFormatVersion: 2
+guid: ee11edad0ac64214d85151093a25a1fa
+timeCreated: 1523269539
+licenseType: Free
+ModelImporter:
+  serializedVersion: 22
+  fileIDToRecycleName:
+    100000: GenericRig_Head
+    100002: GenericRig_Hips
+    100004: GenericRig_LeftArm
+    100006: GenericRig_LeftFoot
+    100008: GenericRig_LeftForeArm
+    100010: GenericRig_LeftHand
+    100012: GenericRig_LeftLeg
+    100014: GenericRig_LeftShoulder
+    100016: GenericRig_LeftToeBase
+    100018: GenericRig_LeftUpLeg
+    100020: GenericRig_Neck
+    100022: GenericRig_Reference
+    100024: GenericRig_RightArm
+    100026: GenericRig_RightFoot
+    100028: GenericRig_RightForeArm
+    100030: GenericRig_RightHand
+    100032: GenericRig_RightLeg
+    100034: GenericRig_RightShoulder
+    100036: GenericRig_RightToeBase
+    100038: GenericRig_RightUpLeg
+    100040: GenericRig_Spine
+    100042: GenericRig_Spine1
+    100044: GenericRig_Spine2
+    100046: grandpa
+    100048: //RootNode
+    400000: GenericRig_Head
+    400002: GenericRig_Hips
+    400004: GenericRig_LeftArm
+    400006: GenericRig_LeftFoot
+    400008: GenericRig_LeftForeArm
+    400010: GenericRig_LeftHand
+    400012: GenericRig_LeftLeg
+    400014: GenericRig_LeftShoulder
+    400016: GenericRig_LeftToeBase
+    400018: GenericRig_LeftUpLeg
+    400020: GenericRig_Neck
+    400022: GenericRig_Reference
+    400024: GenericRig_RightArm
+    400026: GenericRig_RightFoot
+    400028: GenericRig_RightForeArm
+    400030: GenericRig_RightHand
+    400032: GenericRig_RightLeg
+    400034: GenericRig_RightShoulder
+    400036: GenericRig_RightToeBase
+    400038: GenericRig_RightUpLeg
+    400040: GenericRig_Spine
+    400042: GenericRig_Spine1
+    400044: GenericRig_Spine2
+    400046: grandpa
+    400048: //RootNode
+    2100000: BLACK1
+    4300000: grandpa
+    7400000: Take 001
+    7400002: mixamo.com
+    9500000: //RootNode
+    13700000: grandpa
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
