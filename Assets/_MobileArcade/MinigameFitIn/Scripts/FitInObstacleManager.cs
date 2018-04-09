@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class FitInObstacleManager : MonoBehaviour {
 	[SerializeField] List<GameObject> obstacles;
+	[SerializeField] List<GameObject> uniqueObstacles;
 	[Space(10)]
 
 	[Header("Obstacles Spawn Point")]
@@ -22,7 +23,11 @@ public class FitInObstacleManager : MonoBehaviour {
 	[SerializeField] float initialSpawnPerSecond;
 	[SerializeField] float substactTimePerSpawn;
 	[SerializeField] float minSpawnPerSecond;
+	[SerializeField] float uniqueObstacleDelay;
 	float currentSpawnPerSecond;
+
+	float currentTime;
+
 
 	// Use this for initialization
 	void OnEnable () {
@@ -35,6 +40,20 @@ public class FitInObstacleManager : MonoBehaviour {
 	void Update () {
 		if (!LevelManager.isCountdownOver) return;
 
+		currentTime += Time.deltaTime;
+
+		if (currentTime > 10)
+		{
+			int _r = Random.Range(0, 4);
+
+			if (_r < 1)
+			{
+				StartCoroutine(SpawnUniqueObstacles(currentSpawnPerSecond + 1));
+				return;
+			}
+		}
+
+
 		StartCoroutine(SpawnObstacles(currentSpawnPerSecond));
 	}
 
@@ -45,7 +64,12 @@ public class FitInObstacleManager : MonoBehaviour {
 
 		isSpawning = true;
 
+
+
 		int _r = Random.Range(0, obstacles.Count);
+		if ( Random.Range(0, 2) == 1)
+			_r = 0;
+
 		GameObject _obstacle = Instantiate(obstacles[_r], obstacleSpawnPoint, obstacles[_r].transform.rotation);
 
 		int _amountOfObstaclesToDestroy = Random.Range(1, _obstacle.transform.childCount);
@@ -74,5 +98,27 @@ public class FitInObstacleManager : MonoBehaviour {
 		yield return new WaitForSeconds(waitTime);
 		isSpawning = false;
 
+	}
+
+	IEnumerator SpawnUniqueObstacles(float waitTime)
+	{
+		if (isSpawning)
+			yield break;
+
+		isSpawning = true;
+
+		int _r = Random.Range(0, uniqueObstacles.Count);
+		GameObject _uniqueObstacle = Instantiate(uniqueObstacles[_r], obstacleSpawnPoint, uniqueObstacles[_r].transform.rotation);
+
+		_uniqueObstacle.transform.position = obstacleSpawnPoint;
+
+		_uniqueObstacle.GetComponent<FitInObstacle>().speed = obstacleSpeedCurrent;
+		obstacleSpeedCurrent = Mathf.Clamp(obstacleSpeedCurrent + obstacleSpeedAdditioner, obstacleSpeedStart, obstacleSpeedMax);
+
+		currentSpawnPerSecond -= substactTimePerSpawn;
+		currentSpawnPerSecond = Mathf.Clamp(currentSpawnPerSecond, minSpawnPerSecond, initialSpawnPerSecond);
+
+		yield return new WaitForSeconds(waitTime);
+		isSpawning = false;
 	}
 }

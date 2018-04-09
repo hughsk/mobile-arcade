@@ -4178,15 +4178,15 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4700844758591564, guid: 3212d2b45f55b32498728fb4c52b1424, type: 2}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4382143794298596, guid: 3212d2b45f55b32498728fb4c52b1424, type: 2}
       propertyPath: m_RootOrder
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4742773464410386, guid: 3212d2b45f55b32498728fb4c52b1424, type: 2}
       propertyPath: m_RootOrder
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 4640165017751896, guid: 3212d2b45f55b32498728fb4c52b1424, type: 2}
       propertyPath: m_RootOrder
@@ -4194,7 +4194,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4419259462384152, guid: 3212d2b45f55b32498728fb4c52b1424, type: 2}
       propertyPath: m_RootOrder
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 64269788843010554, guid: 3212d2b45f55b32498728fb4c52b1424,
         type: 2}
@@ -4879,6 +4879,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   obstacles:
   - {fileID: 1638669884051770, guid: 12e90e59cf36946ebaefbd4eb46ed04e, type: 2}
+  - {fileID: 1597476665957712, guid: 9b2da204d1d514ad39bdb8fb5586f9a9, type: 2}
+  - {fileID: 1035239641944844, guid: 01e178a122d5142248384a11b7dd24ad, type: 2}
+  uniqueObstacles:
+  - {fileID: 1278601767839638, guid: ca40da6de4cc74290afb6bbe68681222, type: 2}
+  - {fileID: 1422302439728160, guid: c1fd039d889d340fe90876ececaf7504, type: 2}
+  - {fileID: 1717268334138090, guid: 3ac2e489ec32043f4b495e30899d9c93, type: 2}
   obstacleSpawnPoint: {x: 0, y: 0.013, z: 2.6}
   obstacleSpeedStart: 0.3
   obstacleSpeedAdditioner: 0.04
@@ -4886,6 +4892,7 @@ MonoBehaviour:
   initialSpawnPerSecond: 7
   substactTimePerSpawn: 0.5
   minSpawnPerSecond: 2.5
+  uniqueObstacleDelay: 0
 --- !u!1001 &2002631405
 Prefab:
   m_ObjectHideFlags: 0
