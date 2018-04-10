@@ -8,8 +8,8 @@ public class FitInObstacleDestroyer : MonoBehaviour {
 	{
 		if (coll.tag == "Obstacle")
 		{
-			// Destroy the whole group of walls at once
-			if (coll.transform.parent.GetComponent<FitInObstacle>() != null)
+			// Destroy the whole folder
+			if (coll.transform.parent.childCount <= 1)
 			{
 				Destroy(coll.transform.parent.gameObject);
 			}
