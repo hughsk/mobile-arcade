@@ -156,3 +156,37 @@ section[name=controller] button > span > span {
 [hidden] {
   display: none;
 }
+
+section[name=controller] h1 {
+  position: absolute;
+  width: 80%;
+  left: 10%;
+  font-size: 2rem;
+  bottom: 0;
+  height: 20vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 0; padding: 0;
+  opacity: 0;
+  transform: translate(0, 3rem);
+}
+
+section[name=controller].current h1 {
+  opacity: 1;
+  transform: translate(0, 0);
+  transition: transform 0.4s 0.35s, opacity 0.4s 0.35s;
+}
+
+@media screen and (orientation: landscape) {
+  section[name=controller].current .left {
+    transform: scale(0.75, 0.75);
+  }
+}
+
+@media screen and (orientation: portrait) {
+  section[name=controller] h1 {
+    height: calc((100vh - 80vmin) / 2);
+  }
+}
