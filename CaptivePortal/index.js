@@ -18,7 +18,7 @@ const controls = Controls(client, document.querySelector('section[name=controlle
 
 client.once('connect', function () {
   // introSubtitle.innerHTML = 'tap to continue...'
-  changeSection('controller')
+  setTimeout(changeSection.bind(null, 'controller'))
   // window.addEventListener('click', tapToContinue, false)
   // window.addEventListener('ontouchstart', tapToContinue, false)
   // window.addEventListener('ontouchend', tapToContinue, false)
