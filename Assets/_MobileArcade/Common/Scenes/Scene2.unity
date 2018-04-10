@@ -14,10 +14,10 @@ OcclusionCullingSettings:
 RenderSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 8
-  m_Fog: 0
-  m_FogColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+  m_Fog: 1
+  m_FogColor: {r: 0.6536549, g: 0.8433286, b: 0.9558824, a: 1}
   m_FogMode: 3
-  m_FogDensity: 0.01
+  m_FogDensity: 0.7
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
   m_AmbientSkyColor: {r: 0.212, g: 0.227, b: 0.259, a: 1}
@@ -312,6 +312,10 @@ Prefab:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 100002, guid: 4a31e8ab772cadd4ea891a23595e9a2d, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 4a31e8ab772cadd4ea891a23595e9a2d, type: 3}
   m_IsPrefabParent: 0
@@ -446,7 +450,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -1917845054
+  randomSeed: -691626520
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -4186,11 +4190,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4742773464410386, guid: 3212d2b45f55b32498728fb4c52b1424, type: 2}
       propertyPath: m_RootOrder
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 4640165017751896, guid: 3212d2b45f55b32498728fb4c52b1424, type: 2}
       propertyPath: m_RootOrder
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 4419259462384152, guid: 3212d2b45f55b32498728fb4c52b1424, type: 2}
       propertyPath: m_RootOrder
@@ -4813,6 +4817,7 @@ GameObject:
   - component: {fileID: 1945896671}
   - component: {fileID: 1945896673}
   - component: {fileID: 1945896674}
+  - component: {fileID: 1945896675}
   m_Layer: 0
   m_Name: _GameManager
   m_TagString: Untagged
@@ -4885,14 +4890,32 @@ MonoBehaviour:
   - {fileID: 1278601767839638, guid: ca40da6de4cc74290afb6bbe68681222, type: 2}
   - {fileID: 1422302439728160, guid: c1fd039d889d340fe90876ececaf7504, type: 2}
   - {fileID: 1717268334138090, guid: 3ac2e489ec32043f4b495e30899d9c93, type: 2}
+  - {fileID: 1242832806675370, guid: a0d4758031ec74c879f10c88aff6a3ad, type: 2}
+  uniqueObtaclesSpawnDelay: 10
+  spawnProbability: 4
   obstacleSpawnPoint: {x: 0, y: 0.013, z: 2.6}
   obstacleSpeedStart: 0.3
   obstacleSpeedAdditioner: 0.04
   obstacleSpeedMax: 0.7
+  obstacleSpeedCurrent: 0
   initialSpawnPerSecond: 7
   substactTimePerSpawn: 0.5
   minSpawnPerSecond: 2.5
   uniqueObstacleDelay: 0
+--- !u!114 &1945896675
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1945896670}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 387baade8225349239bb1ecea8d81569, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fitInObstacleManager: {fileID: 1945896674}
+  environmentObject: {fileID: 1633066621}
+  repeatInterval: 50
 --- !u!1001 &2002631405
 Prefab:
   m_ObjectHideFlags: 0

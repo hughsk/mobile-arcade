@@ -4,7 +4,12 @@ using UnityEngine;
 
 public class FitInObstacleManager : MonoBehaviour {
 	[SerializeField] List<GameObject> obstacles;
+
+	[Space(10)]
 	[SerializeField] List<GameObject> uniqueObstacles;
+	[SerializeField] float uniqueObtaclesSpawnDelay;
+	[SerializeField] int spawnProbability; // 1 / X
+
 	[Space(10)]
 
 	[Header("Obstacles Spawn Point")]
@@ -16,7 +21,7 @@ public class FitInObstacleManager : MonoBehaviour {
 	[SerializeField] float obstacleSpeedStart;
 	[SerializeField] float obstacleSpeedAdditioner;
 	[SerializeField] float obstacleSpeedMax;
-	float obstacleSpeedCurrent;
+	[HideInInspector] public float obstacleSpeedCurrent;
 	[Space(10)]
 
 	[Header("Obstacle Spawn Speed")]
@@ -42,9 +47,9 @@ public class FitInObstacleManager : MonoBehaviour {
 
 		currentTime += Time.deltaTime;
 
-		if (currentTime > 10)
+		if (currentTime > uniqueObtaclesSpawnDelay)
 		{
-			int _r = Random.Range(0, 4);
+			int _r = Random.Range(0, spawnProbability);
 
 			if (_r < 1)
 			{

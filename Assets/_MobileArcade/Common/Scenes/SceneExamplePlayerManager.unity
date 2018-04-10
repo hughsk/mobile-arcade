@@ -679,7 +679,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerPrefab: {fileID: 114442216371665540, guid: 9d54f19e310a249a18c78a2a3d9329aa,
     type: 2}
-  testPlayers: 1
+  testPlayers: 0
   WASDControls: 0
 --- !u!4 &1945896672
 Transform:
