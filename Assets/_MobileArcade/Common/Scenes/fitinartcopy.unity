@@ -15,7 +15,7 @@ RenderSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 8
   m_Fog: 1
-  m_FogColor: {r: 0.14273354, g: 0.5009785, b: 0.64705884, a: 1}
+  m_FogColor: {r: 0.14273359, g: 0.39663538, b: 0.64705884, a: 1}
   m_FogMode: 3
   m_FogDensity: 0.28
   m_LinearFogStart: 0
@@ -5287,8 +5287,8 @@ Light:
   m_Enabled: 1
   serializedVersion: 8
   m_Type: 1
-  m_Color: {r: 1, g: 0.95686275, b: 0.8392157, a: 1}
-  m_Intensity: 1
+  m_Color: {r: 1, g: 0.89544475, b: 0.6102941, a: 1}
+  m_Intensity: 0.8
   m_Range: 10
   m_SpotAngle: 30
   m_CookieSize: 10
@@ -16452,6 +16452,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be170cf7fbca94eeea3fae530357c899, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  UICanvasPrefab: {fileID: 0}
+  UICountdownPrefab: {fileID: 0}
   centerPoint: {x: 0, y: -0.027, z: -0.462}
   distBetweenPlayers: 0.2
   amountOfPlayersOnRow: 4
@@ -16467,6 +16469,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   obstacles: []
+  uniqueObstacles: []
   obstacleSpawnPoint: {x: 0, y: 0, z: 0}
   obstacleSpeedStart: 0
   obstacleSpeedAdditioner: 0
@@ -16474,6 +16477,7 @@ MonoBehaviour:
   initialSpawnPerSecond: 0
   substactTimePerSpawn: 0
   minSpawnPerSecond: 0
+  uniqueObstacleDelay: 0
 --- !u!1001 &1947442924
 Prefab:
   m_ObjectHideFlags: 0
