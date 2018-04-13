@@ -43,11 +43,21 @@ public class PlayerConnectionManager : MonoBehaviour {
     if (socket != null) return;
 
     socket = IO.Socket(socketHost);
+
     socket.On(Socket.EVENT_CONNECT, OnSocketConnection);
     socket.On(Socket.EVENT_DISCONNECT, OnSocketDisconnect);
     socket.On("client:connect", OnPlayerConnect);
     socket.On("client:disconnect", OnPlayerDisconnect);
     socket.On("client:input", OnClientInput);
+
+    StartCoroutine(Loop());
+  }
+
+  System.Collections.IEnumerator Loop () {
+    while (true) {
+      yield return new WaitForSecondsRealtime(5);
+      socket.Emit("server:keepalive");
+    }
   }
 
   void CloseSocketConnection () {
@@ -60,6 +70,7 @@ public class PlayerConnectionManager : MonoBehaviour {
 
   void OnSocketConnection () {
     Debug.LogWarning("Successfully connected to main socket server!");
+    socket.Emit("server:populate", new string[1] { "" });
   }
 
   void OnSocketDisconnect () {
@@ -86,10 +97,26 @@ public class PlayerConnectionManager : MonoBehaviour {
     }
   }
 
+  static char[] nullChar = new char[1] { (char)0xFF };
+
   void OnClientInput (object data) {
-    var input = JsonConvert.DeserializeObject<PlayerEvents.Input>(data.ToString());
-    lock (queueLock) {
-      queueInput.Add(input);
+    try {
+      var message = data.ToString().Split(nullChar, 4);
+      var id = message[0];
+      var type = message[1];
+      var x = float.Parse(message[2]);
+      var y = float.Parse(message[3]);
+
+      lock (queueLock) {
+        queueInput.Add(new PlayerEvents.Input {
+          id = id,
+          type = type,
+          xInput = x,
+          yInput = y,
+        });
+      }
+    } catch {
+      Debug.Log("error!");
     }
   }
 
