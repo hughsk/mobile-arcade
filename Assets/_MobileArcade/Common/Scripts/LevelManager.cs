@@ -12,7 +12,7 @@ public class LevelManager : MonoBehaviour {
 
 	protected PlayerManager playerManager;
 	[HideInInspector] public Dictionary<string, Player> players;
-	
+
 	public virtual void Start () {
 		Transform UICanvas = Instantiate(UICanvasPrefab);
 		Instantiate(UICountdownPrefab, UICanvas);

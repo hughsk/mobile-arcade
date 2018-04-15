@@ -1,8 +1,11 @@
 using UnityEngine;
 using System;
 using System.Collections.Generic;
-using Quobject.SocketIoClientDotNet.Client;
-using Newtonsoft.Json;
+// using Quobject.SocketIoClientDotNet.Client;
+// using Newtonsoft.Json;
+using System.Net.Sockets;
+using System.Threading;
+using StringBuilder = System.Text.StringBuilder;
 
 /// <summary>
 /// Coordinates incoming socket messages from the main server,
@@ -11,10 +14,14 @@ using Newtonsoft.Json;
 /// socket.io needs to run on a separate thread.
 /// </summary>
 public class PlayerConnectionManager : MonoBehaviour {
-  [SerializeField] string socketHost = "http://localhost:3000/";
+  // [SerializeField] string socketHost = "http://localhost:3000/";
+  // [SerializeField] bool socketsEnabled = false;
+
+  [SerializeField] string socketHost = "localhost";
+  [SerializeField] int socketPort = 3001;
   [SerializeField] bool socketsEnabled = false;
 
-  Socket socket;
+  // Socket socket;
 
   Dictionary<string, PlayerEvents.Session> sessions = new Dictionary<string, PlayerEvents.Session>();
 
@@ -27,6 +34,8 @@ public class PlayerConnectionManager : MonoBehaviour {
   List<PlayerEvents.Session> queueLeave = new List<PlayerEvents.Session>();
   object queueLock = new System.Object();
 
+  Thread connectionThread;
+
   void Awake () {
     DontDestroyOnLoad(gameObject);
   }
@@ -35,46 +44,83 @@ public class PlayerConnectionManager : MonoBehaviour {
     if (socketsEnabled) OpenSocketConnection();
   }
 
+  TcpClient client;
+  NetworkStream stream;
+  StringBuilder buffer;
+
+  void ThreadLoop () {
+    Debug.Log("Thread initialized");
+
+    if (client == null) client = new TcpClient(socketHost, socketPort);
+    if (stream == null) stream = client.GetStream();
+    if (buffer == null) buffer = new StringBuilder();
+
+    while (true) {
+      while (stream.DataAvailable) {
+        var data = (char)stream.ReadByte();
+        if (data == '\n') {
+          HandleMessage(buffer.ToString());
+          buffer.Remove(0, buffer.Length);
+        } else {
+          buffer.Append(data);
+        }
+      }
+    }
+  }
+
+  char[] messageDelimeter = new char[] { ':' };
+
+  void HandleMessage (string message) {
+    if ((message = message.Trim()).Length <= 0) return;
+
+    try {
+      var parts = message.Split(messageDelimeter, 2, StringSplitOptions.None);
+      if (parts.Length < 1) return;
+
+      var name = parts[0];
+      var data = parts[1];
+
+      switch (name) {
+        case "client-input": OnPlayerInput(data); break;
+        case "client-connect": OnPlayerConnect(data); break;
+        case "client-disconnect": OnPlayerDisconnect(data); break;
+      }
+
+    } catch (System.Exception error) {
+      Debug.Log(error.Message);
+    }
+  }
+
   void OnDisable () {
     CloseSocketConnection();
   }
 
   void OpenSocketConnection () {
-    if (socket != null) return;
-
-    socket = IO.Socket(socketHost);
-
-    socket.On(Socket.EVENT_CONNECT, OnSocketConnection);
-    socket.On(Socket.EVENT_DISCONNECT, OnSocketDisconnect);
-    socket.On("client:connect", OnPlayerConnect);
-    socket.On("client:disconnect", OnPlayerDisconnect);
-    socket.On("client:input", OnClientInput);
-
-    StartCoroutine(Loop());
-  }
-
-  System.Collections.IEnumerator Loop () {
-    while (true) {
-      yield return new WaitForSecondsRealtime(5);
-      socket.Emit("server:keepalive");
+    if (connectionThread != null) {
+      connectionThread.Abort();
+      connectionThread = null;
     }
+
+    connectionThread = new Thread(ThreadLoop);
+    connectionThread.Start();
   }
 
   void CloseSocketConnection () {
-    if (socket == null) return;
+    if (client == null) return;
 
-    Debug.Log("Forcing socket connection to close");
-    socket.Disconnect();
-    socket = null;
+    stream.Close();
+    stream = null;
+    client.Close();
+    client = null;
   }
 
   void OnSocketConnection () {
-    Debug.LogWarning("Successfully connected to main socket server!");
-    socket.Emit("server:populate", new string[1] { "" });
+    // Debug.LogWarning("Successfully connected to main socket server!");
+    // socket.Emit("server:populate", new string[1] { "" });
   }
 
   void OnSocketDisconnect () {
-    Debug.LogError("Socket connection terminated?");
+    // Debug.LogError("Socket connection terminated?");
   }
 
   void OnPlayerConnect (object id) {
@@ -97,11 +143,11 @@ public class PlayerConnectionManager : MonoBehaviour {
     }
   }
 
-  static char[] nullChar = new char[1] { (char)0xFF };
+  static char[] nullChar = new char[] { '~' };
 
-  void OnClientInput (object data) {
+  void OnPlayerInput (string data) {
     try {
-      var message = data.ToString().Split(nullChar, 4);
+      var message = data.Split(nullChar, 4, StringSplitOptions.None);
       var id = message[0];
       var type = message[1];
       var x = float.Parse(message[2]);
@@ -115,12 +161,12 @@ public class PlayerConnectionManager : MonoBehaviour {
           yInput = y,
         });
       }
-    } catch {
-      Debug.Log("error!");
+    } catch (System.Exception error) {
+      Debug.Log(error.Message);
     }
   }
 
-  // Because OnClientInput etc. are called on a different thread, we want to make
+  // Because OnPlayerInput etc. are called on a different thread, we want to make
   // sure that any events we call are triggered from the main thread. This gives
   // us full access to Unity when we need it.
   void Update () {
