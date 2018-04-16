@@ -5,9 +5,11 @@ using UnityEngine;
 public class PlatformGroundManager : MonoBehaviour {
 	[SerializeField] [Range(2, 12)] public int gridCount = 8;
 	[SerializeField] [Range(0, 15)] public float gridSize = 1f;
+	[SerializeField] [Range(0, 1)] public float cellHeight = 0.25f;
 	[SerializeField] Material gridMaterial;
 	[SerializeField] Mesh gridCellMesh;
 	[SerializeField] PhysicMaterial gridPhysicsMaterial;
+	[SerializeField] Color fallColor;
 
 	List<Rigidbody> boxes = new List<Rigidbody>();
 	Transform xform;
@@ -17,24 +19,42 @@ public class PlatformGroundManager : MonoBehaviour {
 		if (Application.isPlaying) Populate();
 	}
 
-	float timer = 0f;
-	float dropPeriod = 3f;
+	float dropPeriodMin = 2f;
+	float dropPeriodMax = 4f;
+	float timer = 5f;
+	float speedupCounter = 0f;
+	float speedupRate = 1.015f;
 
 	void Update () {
-		timer += Time.deltaTime;
+		timer -= Time.deltaTime;
 
-		while (timer > dropPeriod) {
-			timer -= dropPeriod;
+		if (timer <= 0) {
+			float increment = Random.Range(dropPeriodMin, dropPeriodMax);
+			increment = increment / Mathf.Pow(speedupRate, speedupCounter);
+			increment = Mathf.Max(0.25f, increment);
+
+			if (float.IsNaN(increment)) increment = 0.25f;
+
+			timer += increment;
 			DropOneBox();
 		}
 	}
 
 	void DropOneBox () {
+		if (boxes.Count <= 0) return;
+
 		var idx = Random.Range(0, boxes.Count);
 		var box = boxes[idx];
 
-		box.isKinematic = false;
+		speedupCounter++;
 		boxes.RemoveAt(idx);
+		box.GetComponent<MeshRenderer>().material.color = fallColor;
+		StartCoroutine(BeginDrop(box));
+	}
+
+	IEnumerator BeginDrop (Rigidbody box) {
+		yield return new WaitForSeconds(3f);
+		box.isKinematic = false;
 	}
 
 	void Populate () {
@@ -53,7 +73,7 @@ public class PlatformGroundManager : MonoBehaviour {
 				prim.AddComponent<MeshRenderer>().sharedMaterial = gridMaterial;
 				prim.AddComponent<BoxCollider>().sharedMaterial = gridPhysicsMaterial;
 				primTransform.SetParent(xform, false);
-				primTransform.localScale = Vector3.one * GetCellScale() * 0.9f;
+				primTransform.localScale = new Vector3(1, cellHeight, 1) * GetCellScale() * 0.9f;
 				primTransform.localPosition = GetCellPosition3(x, y);
 			}
 		}
@@ -87,7 +107,7 @@ public class PlatformGroundManager : MonoBehaviour {
 	Vector3 GetCellPosition3 (int x, int y) {
 		return new Vector3(
 			GetCellPosition(x),
-			0f,
+			GetCellScale() * (1 - cellHeight) * 0.9f * 0.5f,
 			GetCellPosition(y)
 		);
 	}

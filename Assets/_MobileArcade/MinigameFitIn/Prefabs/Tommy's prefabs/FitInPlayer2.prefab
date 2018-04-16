@@ -1372,7 +1372,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 69324e31232f0c64ea1685c1ff71dd15, type: 3}
   - {fileID: 8300000, guid: bc63d53469f86a744a934992901d63ac, type: 3}
   - {fileID: 8300000, guid: dd51cc1c7e1b47a448248c58c25068ca, type: 3}
-  fallingWhistle: {fileID: 8300000, guid: 72e9d2460606d47478b503122b0f0ea3, type: 3}
+  fallingWhistle: {fileID: 8300000, guid: bcb322d76afe39244bb9611bf211d2a3, type: 3}
   snowTrailDist: -1
 --- !u!114 &114403457895271532
 MonoBehaviour:
