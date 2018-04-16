@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Net.Sockets;
 using System.Threading;
 using StringBuilder = System.Text.StringBuilder;
+using Stopwatch = System.Diagnostics.Stopwatch;
 
 /// <summary>
 /// Coordinates incoming socket messages from the main server,
@@ -14,14 +15,9 @@ using StringBuilder = System.Text.StringBuilder;
 /// socket.io needs to run on a separate thread.
 /// </summary>
 public class PlayerConnectionManager : MonoBehaviour {
-  // [SerializeField] string socketHost = "http://localhost:3000/";
-  // [SerializeField] bool socketsEnabled = false;
-
   [SerializeField] string socketHost = "localhost";
   [SerializeField] int socketPort = 3001;
   [SerializeField] bool socketsEnabled = false;
-
-  // Socket socket;
 
   Dictionary<string, PlayerEvents.Session> sessions = new Dictionary<string, PlayerEvents.Session>();
 
@@ -47,30 +43,71 @@ public class PlayerConnectionManager : MonoBehaviour {
   TcpClient client;
   NetworkStream stream;
   StringBuilder buffer;
+  static byte[] keepalive = new byte[] { (byte)'p', (byte)'i', (byte)'n', (byte)'g', (byte)'\n' };
+  bool running = false;
 
   void ThreadLoop () {
-    Debug.Log("Thread initialized");
+    if (running) return;
 
-    if (client == null) client = new TcpClient(socketHost, socketPort);
-    if (stream == null) stream = client.GetStream();
-    if (buffer == null) buffer = new StringBuilder();
+    Debug.Log("Attempting connection to central server");
 
-    while (true) {
-      while (stream.DataAvailable) {
-        var data = (char)stream.ReadByte();
-        if (data == '\n') {
-          HandleMessage(buffer.ToString());
-          buffer.Remove(0, buffer.Length);
-        } else {
-          buffer.Append(data);
+    if (client == null) client = new TcpClient();
+
+    var result = client.BeginConnect(socketHost, socketPort, null, null);
+
+    result.AsyncWaitHandle.WaitOne(TimeSpan.FromSeconds(5));
+
+    if (client.Connected) {
+      Debug.Log("Connection established!");
+      client.EndConnect(result);
+
+      if (stream == null) stream = client.GetStream();
+      if (buffer == null) buffer = new StringBuilder();
+
+      OnStartConnection();
+
+      var stopwatch = new Stopwatch();
+      running = true;
+      stopwatch.Start();
+
+      while (running) {
+        while (stream.DataAvailable) {
+          var data = (char)stream.ReadByte();
+          if (data == '\n') {
+            HandleMessage(buffer.ToString());
+            buffer.Remove(0, buffer.Length);
+          } else {
+            buffer.Append(data);
+          }
+        }
+
+        // Detect disconnection because c# is bad at networking
+        if (stopwatch.ElapsedMilliseconds > 1000) {
+          try {
+            stream.Write(keepalive, 0, keepalive.Length);
+          } catch {
+            running = false;
+            OnEndConnection();
+          }
+
+          stopwatch.Reset();
+          stopwatch.Start();
         }
       }
+
+      Debug.Log("Server disconnected");
+    } else {
+      Debug.Log("Connection failed, trying again");
     }
+
+    CloseSocketConnection();
+    ThreadLoop();
   }
 
   char[] messageDelimeter = new char[] { ':' };
 
   void HandleMessage (string message) {
+    Debug.Log("message: " + message);
     if ((message = message.Trim()).Length <= 0) return;
 
     try {
@@ -93,6 +130,9 @@ public class PlayerConnectionManager : MonoBehaviour {
 
   void OnDisable () {
     CloseSocketConnection();
+
+    if (connectionThread != null) connectionThread.Abort();
+    connectionThread = null;
   }
 
   void OpenSocketConnection () {
@@ -106,21 +146,23 @@ public class PlayerConnectionManager : MonoBehaviour {
   }
 
   void CloseSocketConnection () {
+    running = false;
     if (client == null) return;
-
-    stream.Close();
-    stream = null;
     client.Close();
     client = null;
+    if (stream == null) return;
+    stream.Close();
+    stream = null;
   }
 
-  void OnSocketConnection () {
-    // Debug.LogWarning("Successfully connected to main socket server!");
+  void OnStartConnection () {
     // socket.Emit("server:populate", new string[1] { "" });
   }
 
-  void OnSocketDisconnect () {
-    // Debug.LogError("Socket connection terminated?");
+  void OnEndConnection () {
+    foreach (var session in sessions.Values) {
+      OnPlayerDisconnect(session.id);
+    }
   }
 
   void OnPlayerConnect (object id) {
