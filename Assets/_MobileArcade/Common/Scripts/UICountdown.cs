@@ -16,20 +16,20 @@ public class UICountdown : MonoBehaviour {
 	}
 
 	void Update(){
-		if (timer > 0)
+		if (timer > -1)
 			timer -= Time.deltaTime;
 		else
 		{
 			Destroy(gameObject);
-			LevelManager.isCountdownOver = true;
 		}
 
-		float t = 1f - Mathf.Repeat(Mathf.Max(0, timer), 1f);
+		LevelManager.isCountdownOver = timer <= 0f;
+		float t = 1f - Mathf.Repeat(Mathf.Max(-1f, timer), 1f);
 
 		xform.localScale = Vector3.one * EasingFunction.EaseInOutExpo(1f, 0f, t);
 		xform.localRotation = Quaternion.Euler(0, 0, EasingFunction.EaseInOutCirc(+30f, -80f, t));
 
-		UpdateCountdownUI(((int)timer + 1).ToString());
+		UpdateCountdownUI(timer >= 0 ? ((int)timer + 1).ToString() : "GO!");
 	}
 
 	void UpdateCountdownUI(string s)
