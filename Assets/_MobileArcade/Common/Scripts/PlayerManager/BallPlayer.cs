@@ -1,9 +1,10 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class BallPlayer : Player {
 	Vector3 direction;
+	float startPosY;
 	protected Rigidbody rb;
 	// Useful for knowing the velocity before a collision
 	protected Vector3 lastVelocity;
@@ -64,6 +65,12 @@ public class BallPlayer : Player {
 		DustTrail();
 	}
 
+	public virtual void Start()
+	{
+		startPosY = transform.localPosition.y;
+		print(transform.localPosition.y);
+	}
+
 	public virtual void Update () {
 		if (!LevelManager.isCountdownOver) return;
 
@@ -79,7 +86,7 @@ public class BallPlayer : Player {
 
 
 		// Whistle sound if player is falling
-		if (rb.velocity.y < -0.2 && whistleSoundObj == null)
+		if (rb.velocity.y < -0.2 && transform.localPosition.y < startPosY && whistleSoundObj == null)
 		{
 			whistleSoundObj = new GameObject("Whistle Sound");
 			whistleSoundObj.transform.SetParent(transform);
