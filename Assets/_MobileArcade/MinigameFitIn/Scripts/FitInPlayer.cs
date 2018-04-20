@@ -31,7 +31,7 @@ public class FitInPlayer : BallPlayer {
 
 		if (_col.gameObject.tag == "Obstacle" && !touchedObstacle)
 		{
-			rb.velocity = -1 * lastVelocity;
+			rb.velocity = -0.5f * lastVelocity;
 			StartCoroutine(AllowVelocityIncrease(5));
 		}
 
