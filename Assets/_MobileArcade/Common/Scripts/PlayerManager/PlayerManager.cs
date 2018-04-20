@@ -95,8 +95,6 @@ public class PlayerManager : MonoBehaviour {
     playerTransform.SetParent(xform);
     players[sessionId] = player;
 
-    Debug.Log(sessionId);
-
     return player;
   }
 
