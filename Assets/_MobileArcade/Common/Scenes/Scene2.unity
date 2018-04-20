@@ -5374,11 +5374,11 @@ MonoBehaviour:
   uniqueObtaclesSpawnDelay: 10
   spawnProbability: 4
   obstacleSpawnPoint: {x: 0, y: 0.013, z: 2.6}
-  obstacleSpeedStart: 0.3
+  obstacleSpeedStart: 0.2
   obstacleSpeedAdditioner: 0.04
   obstacleSpeedMax: 0.7
   obstacleSpeedCurrent: 0
-  initialSpawnPerSecond: 7
+  initialSpawnPerSecond: 8
   substactTimePerSpawn: 0.5
   minSpawnPerSecond: 2.5
   uniqueObstacleDelay: 0
