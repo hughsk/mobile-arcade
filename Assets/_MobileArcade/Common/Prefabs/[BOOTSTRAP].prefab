@@ -151,7 +151,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e2942599f1744e4fb9a6f335329e3ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  socketHost: localhost
+  socketHost: 10.0.0.1
   socketPort: 3001
   socketsEnabled: 1
 --- !u!114 &114822331275960028
@@ -165,3 +165,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc67d85620a71684a9635b62a8fc10f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  music: {fileID: 8300000, guid: dea20720442ec69488060cbe0c6c3ca8, type: 3}

@@ -7,24 +7,41 @@ public class GameLoader : MonoBehaviour {
 	bool isLoading = false;
 	int startScene = 0;
 
+	[SerializeField] AudioClip music;
+	AudioSource source;
+
 	void Awake () {
 		startScene = SceneManager.GetActiveScene().buildIndex;
-		Debug.Log(startScene);
 	}
 
 	void Start () {
 		LoadNextScene();
 	}
 
+	void OnEnable () {
+		if (source == null && GetComponent<AudioSource>() == null) {
+			source = gameObject.AddComponent<AudioSource>();
+			source.clip = music;
+			source.loop = true;
+			source.volume = 0.25f;
+			source.Play();
+			Debug.Log("Starting music");
+		}
+	}
+
 	int GetRandomScene () {
 		int currScene = SceneManager.GetActiveScene().buildIndex;
-		int nextScene = currScene;
+		int nextScene = Mathf.Max(1, currScene);
 
-		while (currScene == nextScene) {
-			nextScene = Mathf.FloorToInt(
-				Random.Range(1, SceneManager.sceneCountInBuildSettings)
-			);
+		if (SceneManager.sceneCountInBuildSettings > 2) {
+			while (currScene == nextScene) {
+				nextScene = Mathf.FloorToInt(
+					Random.Range(1, SceneManager.sceneCountInBuildSettings)
+				);
+			}
 		}
+
+		Debug.Log(nextScene);
 
 		return nextScene;
 	}

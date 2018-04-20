@@ -107,7 +107,6 @@ public class PlayerConnectionManager : MonoBehaviour {
   char[] messageDelimeter = new char[] { ':' };
 
   void HandleMessage (string message) {
-    Debug.Log("message: " + message);
     if ((message = message.Trim()).Length <= 0) return;
 
     try {
@@ -118,7 +117,7 @@ public class PlayerConnectionManager : MonoBehaviour {
       var data = parts[1];
 
       switch (name) {
-        case "client-input": OnPlayerInput(data); break;
+        case "ci": OnPlayerInput(data); break;
         case "client-connect": OnPlayerConnect(data); break;
         case "client-disconnect": OnPlayerDisconnect(data); break;
       }

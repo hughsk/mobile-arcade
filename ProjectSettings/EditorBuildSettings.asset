@@ -8,12 +8,18 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/_MobileArcade/Common/Scenes/SceneBootstrap.unity
     guid: a392e9d222bf7b74c92c6184e44d79fd
-  - enabled: 1
+  - enabled: 0
     path: Assets/_MobileArcade/Common/Scenes/SceneExamplePlayerManager.unity
     guid: 30a9a1c43421bfd43aea5133cb1ab4c9
   - enabled: 1
     path: Assets/_MobileArcade/Common/Scenes/Scene2.unity
     guid: b78d491c191884f90a4e6dfaf5106d7e
-  - enabled: 1
+  - enabled: 0
     path: Assets/_MobileArcade/Common/Scenes/ScenePlatform.unity
     guid: b6faa44430efc394e9daa8698ab575d7
+  - enabled: 1
+    path: Assets/_MobileArcade/Common/Scenes/ScenePlatformGround.unity
+    guid: 3e1044bb70e1d9c42a8667e4c1be553a
+  - enabled: 1
+    path: Assets/_MobileArcade/Common/Scenes/art1 4th copy 1.unity
+    guid: 1000313b3b6593641b5f5bcf4b55a549
