@@ -34,7 +34,7 @@ public class BallPlayer : Player {
 	float startParticles_lifetime;
 	// Dust trail particles (used when the player moves)
 	[SerializeField] ParticleSystem dustTrails; // The prefab
-	protected ParticleSystem playerDustTrails; 
+	protected ParticleSystem playerDustTrails;
 	[Space(10)]
 
 
@@ -81,7 +81,6 @@ public class BallPlayer : Player {
 		// Whistle sound if player is falling
 		if (rb.velocity.y < -0.2 && whistleSoundObj == null)
 		{
-			print(rb.velocity.y);
 			whistleSoundObj = new GameObject("Whistle Sound");
 			whistleSoundObj.transform.SetParent(transform);
 			whistleSoundObj.transform.position = transform.position;
@@ -171,7 +170,6 @@ public class BallPlayer : Player {
 	{
 		if (_col.gameObject.tag == "Player")
 		{
-			print("ball collision");
 			// Reflection bouncing
 			Vector3 _otherVelocity = _col.transform.GetComponent<BallPlayer>().lastVelocity;
 			rb.velocity = lastVelocity / 4 + (_otherVelocity / 2)*bouncingForce;

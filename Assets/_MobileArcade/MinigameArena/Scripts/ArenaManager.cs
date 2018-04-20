@@ -17,7 +17,7 @@ public class ArenaManager : LevelManager {
 	[SerializeField] float bDistFromCenter;
 	[SerializeField] int amountOfBarriers;
 
-  
+
 
 	public override void Start () {
 		base.Start();

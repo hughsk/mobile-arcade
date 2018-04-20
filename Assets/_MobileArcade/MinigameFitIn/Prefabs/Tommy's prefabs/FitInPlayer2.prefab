@@ -1367,12 +1367,12 @@ MonoBehaviour:
   dustTrails: {fileID: 198894985871165644, guid: 04c1beb275fe54228a119fb43df701c7,
     type: 2}
   collidingSounds:
-  - {fileID: 8300000, guid: d1f28b115f80a4ce19750499be1a893a, type: 3}
-  - {fileID: 8300000, guid: fd4e67055f9f546c69d4b3a9ea4ad0ee, type: 3}
-  - {fileID: 8300000, guid: f9054218a566643d3b26e49d09b761c0, type: 3}
-  - {fileID: 8300000, guid: 3be68d8f71de04a918b8eaa4c200d192, type: 3}
-  - {fileID: 8300000, guid: 423e1d54669d14bbdb74a2c801aa700a, type: 3}
-  fallingWhistle: {fileID: 8300000, guid: e79b832077d1e4ed8bc53cec584350e4, type: 3}
+  - {fileID: 8300000, guid: abbf7596df3e4b8488de6fc3fe4298a0, type: 3}
+  - {fileID: 8300000, guid: 075e3cc55619c5a45ae011e2c96dd26f, type: 3}
+  - {fileID: 8300000, guid: 69324e31232f0c64ea1685c1ff71dd15, type: 3}
+  - {fileID: 8300000, guid: bc63d53469f86a744a934992901d63ac, type: 3}
+  - {fileID: 8300000, guid: dd51cc1c7e1b47a448248c58c25068ca, type: 3}
+  fallingWhistle: {fileID: 8300000, guid: bcb322d76afe39244bb9611bf211d2a3, type: 3}
   snowTrailDist: -1
 --- !u!114 &114403457895271532
 MonoBehaviour:
