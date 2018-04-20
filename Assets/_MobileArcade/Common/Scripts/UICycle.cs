@@ -21,7 +21,7 @@ public class UICycle : MonoBehaviour {
 	void Update () {
 		time += Time.deltaTime;
 
-		float t = Mathf.Repeat(time, 30f) / 10f;
+		float t = Mathf.Repeat(time, 25f) / 15f;
 
 		t = Mathf.Clamp01(t);
 		bool down = t > 0.5f;
