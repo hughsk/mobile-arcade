@@ -1386,6 +1386,10 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 69324e31232f0c64ea1685c1ff71dd15, type: 3}
   - {fileID: 8300000, guid: bc63d53469f86a744a934992901d63ac, type: 3}
   - {fileID: 8300000, guid: dd51cc1c7e1b47a448248c58c25068ca, type: 3}
+  - {fileID: 8300000, guid: c84b52f7a43764bd59c6a9114492e0af, type: 3}
+  - {fileID: 8300000, guid: a9472e5840f9c4a17849d9360e03a5b8, type: 3}
+  - {fileID: 8300000, guid: 9840a8c4768aa422695fbd9f2961b411, type: 3}
+  - {fileID: 8300000, guid: 7695e5b22c4644095aa8837ac74e5924, type: 3}
   fallingWhistle: {fileID: 8300000, guid: bcb322d76afe39244bb9611bf211d2a3, type: 3}
 --- !u!135 &135009022848814256
 SphereCollider:
