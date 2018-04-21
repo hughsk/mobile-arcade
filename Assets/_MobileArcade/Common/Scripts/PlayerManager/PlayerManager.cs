@@ -38,8 +38,8 @@ public class PlayerManager : MonoBehaviour {
     connectionManager.Join();
 
     if (testPlayers) {
-      SpawnNewPlayer("0", new Color(1, 0, 0));
-      SpawnNewPlayer("1", new Color(0, 0, 1));
+      SpawnNewPlayer("0", new Color(1, 0, 0), "Red");
+      SpawnNewPlayer("1", new Color(0, 0, 1), "Blue");
     }
   }
 
@@ -84,7 +84,7 @@ public class PlayerManager : MonoBehaviour {
     }
   }
 
-  Player SpawnNewPlayer (string sessionId, Color color) {
+  Player SpawnNewPlayer (string sessionId, Color color, string name) {
     if (players.ContainsKey(sessionId)) return players[sessionId];
 
     var player = Instantiate<Player>(playerPrefab);
@@ -92,6 +92,7 @@ public class PlayerManager : MonoBehaviour {
 
     player.sessionId = sessionId;
     player.SetColor(color);
+    player.SetName(name);
     playerTransform.SetParent(xform);
     players[sessionId] = player;
 
@@ -104,7 +105,7 @@ public class PlayerManager : MonoBehaviour {
   }
 
   void OnPlayerEnter (PlayerEvents.Session session) {
-    SpawnNewPlayer(session.id, session.color);
+    SpawnNewPlayer(session.id, session.color, session.name);
   }
 
   void OnPlayerInput (PlayerEvents.Input input) {
@@ -134,5 +135,5 @@ public class PlayerManager : MonoBehaviour {
       players.Remove(session.id);
     }
   }
-		
+
 }

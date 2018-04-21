@@ -29,15 +29,17 @@ public static class PlayerEvents {
 
   public struct Session {
     public string id;
+    public string name;
     public int red;
     public int green;
     public int blue;
 
-    public Session (string _id, int red, int green, int blue) {
+    public Session (string _id, int red, int green, int blue, string name) {
       this.id = _id;
       this.red = red;
       this.green = green;
       this.blue = blue;
+      this.name = name;
     }
 
     public static Session FromJSON (string json) {

@@ -25,4 +25,6 @@ public class PlayerExample : Player {
   public override void SetColor(Color color) {
     Debug.Log(color);
   }
+
+  public override void SetName(string name) {}
 }

@@ -166,6 +166,7 @@ public class PlayerConnectionManager : MonoBehaviour {
 
   void OnPlayerConnect (object id) {
     var session = PlayerEvents.Session.FromJSON(id.ToString());
+    Debug.Log(session.name);
     sessions.Add(session.id, session);
     lock (queueLock) {
       queueEnter.Add(session);

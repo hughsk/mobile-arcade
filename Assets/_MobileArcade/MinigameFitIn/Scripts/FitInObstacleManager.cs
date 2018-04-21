@@ -87,13 +87,13 @@ public class FitInObstacleManager : MonoBehaviour {
 			int _randomObstacleNr = Random.Range(0, _obstacle.transform.childCount);
 			if (_childsDestroyed.Contains(_randomObstacleNr))
 				continue;
-			
+
 			Destroy(_obstacle.transform.GetChild(_randomObstacleNr).gameObject);
 			_childsDestroyed.Add(_randomObstacleNr);
 			_amountOfObstaclesDestroyed++;
 		}
 		_obstacle.transform.position = obstacleSpawnPoint;
-	
+
 		_obstacle.GetComponent<FitInObstacle>().speed = obstacleSpeedCurrent;
 		obstacleSpeedCurrent = Mathf.Clamp(obstacleSpeedCurrent + obstacleSpeedAdditioner, obstacleSpeedStart, obstacleSpeedMax);
 

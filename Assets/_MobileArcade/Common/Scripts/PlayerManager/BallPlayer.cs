@@ -9,6 +9,9 @@ public class BallPlayer : Player {
 	// Useful for knowing the velocity before a collision
 	protected Vector3 lastVelocity;
 
+	[Header("Text")]
+	[SerializeField] TMPro.TextMeshPro text;
+
 	[Header("Player Movement")]
 	// Acceleration speed of the player
 	[SerializeField] float accelerationSpeed;
@@ -151,6 +154,10 @@ public class BallPlayer : Player {
 
 		var model = GetComponentInChildren<PlayerModelHandler>();
 		if (model != null) model.UpdateColor(color);
+	}
+
+	public override void SetName (string name) {
+		text.text = name;
 	}
 
 	public override void OnMoveTilt(Vector2 _movement) {

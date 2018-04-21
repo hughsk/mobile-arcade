@@ -20,6 +20,7 @@ public abstract class Player : MonoBehaviour {
   /// moving slowly.
   /// </param>
   public abstract void SetColor (Color color);
+  public abstract void SetName (string name);
   public virtual void OnMoveTilt (Vector2 movement) {}
 
 }

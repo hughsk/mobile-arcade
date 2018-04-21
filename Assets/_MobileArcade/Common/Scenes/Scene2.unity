@@ -5319,7 +5319,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerPrefab: {fileID: 114153585566511126, guid: ee9d0b68a1846494eb0fc26edcd1de64,
     type: 2}
-  testPlayers: 0
+  testPlayers: 1
   WASDControls: 0
 --- !u!4 &1945896672
 Transform:
@@ -5347,7 +5347,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   UICanvasPrefab: {fileID: 224555849571365052, guid: 9c1e03a17ef8f4e678d081f97eed2d41,
     type: 2}
-  UICountdownPrefab: {fileID: 1673187609663282, guid: 1cb7aace35e664fabbc3e393b1e23e93,
+  UICountdownPrefab: {fileID: 1673187609663282, guid: 1a2dcdab795454fde8b5bd3be3475a68,
     type: 2}
   centerPoint: {x: 0, y: -0.027, z: -0.462}
   distBetweenPlayers: 0.2
@@ -5364,7 +5364,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   obstacles:
-  - {fileID: 1638669884051770, guid: 12e90e59cf36946ebaefbd4eb46ed04e, type: 2}
+  - {fileID: 1638669884051770, guid: 929b2937000fef74fbc8f572bc1ec2e7, type: 2}
   - {fileID: 1597476665957712, guid: 927c877b2a569254085680a1bea79e83, type: 2}
   - {fileID: 1035239641944844, guid: 17053f2033ed37c46b023106dc4515f7, type: 2}
   uniqueObstacles:
